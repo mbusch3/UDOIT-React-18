@@ -167,7 +167,7 @@ export default function ReviewFilesPage({
         type: tempFile.fileData.fileType ? { value: tempFile.fileData.fileType, display: getFileTypeDisplay(tempFile.fileData.fileType)}: t('label.mime.unknown'),
         date: tempFile.fileData.updated ? { value: tempFile.fileData.updated, display: Text.getReadableDateTime(tempFile.fileData.updated)} : t('label.unknown'),
         /* size: tempFile.fileData.fileSize ? { value: parseInt(tempFile.fileData.fileSize), display: Text.getReadableFileSize(tempFile.fileData.fileSize) } : t('label.unknown'), */
-        references: (tempFile.fileData?.references.length) || 0,
+        references: (tempFile.fileData?.references?.length || 0 ) + (tempFile.fileData?.sectionRefs?.length || 0) + (tempFile.fileData?.replacement?.references?.length || 0) + (tempFile.fileData?.replacement?.sectionRefs?.length || 0),
         status: tempFile.status ? { value: t('fix.label.status.' + (tempFile.status.toLowerCase())), display: getFileStatusDisplay(tempFile.status)} : '',
         onClick: () => { jumpToFile(tempFile.id) },
         onKeyDown: (e) => {

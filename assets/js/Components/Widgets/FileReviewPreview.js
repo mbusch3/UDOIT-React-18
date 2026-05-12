@@ -51,32 +51,113 @@ export default function FixIssuesContentPreview({
 
   const handleFileReference = () => {
     let tempReferences = []
+    let replacementRefsCount = {}
+    let originalRefsCount = {}
 
-    activeIssue.fileData.replacement?.references?.forEach((ref) => {
-      let tempRef = JSON.parse(JSON.stringify(ref))
-      tempRef.status  = 1
-      tempReferences.push(tempRef)
-    })
+    const compileReferenceCounts = (countObject, list) => {
+      if(!list) return countObject
 
-    activeIssue.fileData.replacement?.sectionRefs?.forEach((ref) => {
-      let tempRef = JSON.parse(JSON.stringify(ref))
-      tempRef.status  = 1
-      tempReferences.push(tempRef)
-    })
+      list.forEach((ref) => {
+        let tempRef = JSON.parse(JSON.stringify(ref))
+        if(countObject[ref.contentItemId]){
+          countObject[ref.contentItemId] += 1
+          tempReferences.map((reference) => {
+          if(reference.contentItemId == ref.contentItemId){
+            reference.count = countObject[ref.contentItemId]
+          }
+            return reference
+          })
+        } else {
+          countObject[ref.contentItemId] = 1
+          tempRef.count = 1
+          tempReferences.push(tempRef)
+        }
+      })
+      return countObject
+    }
+
+    originalRefsCount = compileReferenceCounts(originalRefsCount, activeIssue?.fileData?.references)
+    originalRefsCount = compileReferenceCounts(originalRefsCount, activeIssue?.fileData?.sectionRefs)
+    replacementRefsCount = compileReferenceCounts(replacementRefsCount, activeIssue?.fileData?.replacement?.references)
+    replacementRefsCount = compileReferenceCounts(replacementRefsCount, activeIssue?.fileData?.replacement?.sectionRefs)
+
+    // activeIssue.fileData.replacement?.references?.forEach((ref) => {
+    //   let tempRef = JSON.parse(JSON.stringify(ref))
+
+    //   if(replacementRefsCount[ref.contentItemId]){
+    //     replacementRefsCount[ref.contentItemId] += 1
+    //     tempReferences.map((reference) => {
+    //       if(reference.contentItemId == ref.contentItemId){
+    //         reference.count = replacementRefsCount[ref.contentItemId]
+    //       }
+    //       return reference
+    //     })
+    //   } else {
+    //     replacementRefsCount[ref.contentItemId] = 1
+    //     tempRef.status  = 1
+    //     tempRef.count = 1
+    //     tempReferences.push(tempRef)
+    //   }
+    // })
+
+    // activeIssue.fileData.replacement?.sectionRefs?.forEach((ref) => {
+    //   let tempRef = JSON.parse(JSON.stringify(ref))
+
+    //   if(replacementRefsCount[ref.contentItemId]){
+    //     replacementRefsCount[ref.contentItemId] += 1
+    //     tempReferences.map((reference) => {
+    //       if(reference.contentItemId == ref.contentItemId){
+    //         reference.count = replacementRefsCount[ref.contentItemId]
+    //       }
+    //       return reference
+    //     })
+    //   } else {
+    //     replacementRefsCount[ref.contentItemId] = 1
+    //     tempRef.status  = 1
+    //     tempRef.count = 1
+    //     tempReferences.push(tempRef)
+    //   }
+    // })
 
 
-    activeIssue.fileData.references?.forEach((ref) => {
-      let tempRef = JSON.parse(JSON.stringify(ref))
-      tempRef.status  = 0
-      tempReferences.push(tempRef)
-    })
+    // activeIssue.fileData.references?.forEach((ref) => {
+    //   let tempRef = JSON.parse(JSON.stringify(ref))
+
+    //   if(originalRefsCount[ref.contentItemId]){
+    //     originalRefsCount[ref.contentItemId] += 1
+    //     tempReferences.map((reference) => {
+    //       if(reference.contentItemId == ref.contentItemId){
+    //         reference.count = originalRefsCount[ref.contentItemId]
+    //       }
+    //       return reference
+    //     })
+    //   } else {
+    //     originalRefsCount[ref.contentItemId] = 1
+    //     tempRef.status  = 0
+    //     tempRef.count = 1
+    //     tempReferences.push(tempRef)
+    //   }
+    // })
 
 
-    activeIssue.fileData.sectionRefs?.forEach((ref) => {
-      let tempRef = JSON.parse(JSON.stringify(ref))
-      tempRef.status  = 0
-      tempReferences.push(tempRef)
-    })
+    // activeIssue.fileData.sectionRefs?.forEach((ref) => {
+    //   let tempRef = JSON.parse(JSON.stringify(ref))
+
+    //   if(originalRefsCount[ref.contentItemId]){
+    //     originalRefsCount[ref.contentItemId] += 1
+    //     tempReferences.map((reference) => {
+    //       if(reference.contentItemId == ref.contentItemId){
+    //         reference.count = originalRefsCount[ref.contentItemId]
+    //       }
+    //       return reference
+    //     })
+    //   } else {
+    //     originalRefsCount[ref.contentItemId] = 1
+    //     tempRef.status  = 0
+    //     tempRef.count = 1
+    //     tempReferences.push(tempRef)
+    //   }
+    // })
     
     setFileReferenceHolder(tempReferences)
   }
@@ -133,6 +214,7 @@ export default function FixIssuesContentPreview({
                   <thead>
                     <tr>
                       <th>{t('form.file.location.label')}</th>
+                      <th>{t('fix.label.references')}</th>
                       <th>{t('form.file.status.label')}</th>
                     </tr>
                   </thead>
@@ -145,6 +227,7 @@ export default function FixIssuesContentPreview({
                             <ExternalLinkIcon className="link-color align-self-center ms-2 icon-sm"/>
                           </a>
                         </td>
+                        <td>{ref.count}</td>
                         <td>
                           {activeIssue.fileData.replacement ? (
                             <div className='file-label-pill file-new'>{t('form.file.new.label')}</div>

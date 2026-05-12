@@ -43,7 +43,6 @@ export default function FileForm ({
     const [nonReferenced, setNonReferenced] = useState(false)
 
     useEffect(() => { 
-      console.log("Active File: ", activeFile)
       setUploadedFile(null)
       setNonReferenced(false)
       setActiveOption('')
