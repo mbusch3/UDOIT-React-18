@@ -1,0 +1,17 @@
+{
+  "name": "udoit-server",
+  "version": "4.0.0",
+  "description": "UDOIT v4 Server",
+  "license": "GPL-3.0-only",
+  "author": "University of Central Florida",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@lti-tool/core": "^1.1.0",
+    "express": "^5.2.1"
+  }
+}
