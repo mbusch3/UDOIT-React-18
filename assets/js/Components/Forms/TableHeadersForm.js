@@ -17,8 +17,7 @@ export default function TableHeadersForm({
 
   const FORM_OPTIONS = {
     SELECT_DIRECTION: UFIXIT_OPTIONS.SELECT_ATTRIBUTE_VALUE,
-    MARK_DECORATIVE: UFIXIT_OPTIONS.MARK_DECORATIVE,
-    MARK_AS_REVIEWED: UFIXIT_OPTIONS.MARK_AS_REVIEWED
+    MARK_DECORATIVE: UFIXIT_OPTIONS.MARK_DECORATIVE
   }
 
   const radioOptions = [
@@ -43,9 +42,6 @@ export default function TableHeadersForm({
     const reviewed = activeIssue.newHtml && (activeIssue.status === 2 || activeIssue.status === 3)
     let startingOption = ''
 
-    if (reviewed) {
-      startingOption = FORM_OPTIONS.MARK_AS_REVIEWED
-    }
     if (fixed) {
       if (decorationOnly) {
         startingOption = FORM_OPTIONS.MARK_DECORATIVE
@@ -170,12 +166,6 @@ export default function TableHeadersForm({
 
   const updateHtmlContent = () => {
     let issue = activeIssue
-
-    if (activeOption === FORM_OPTIONS.MARK_AS_REVIEWED) {
-      issue.newHtml = issue.initialHtml
-      handleActiveIssue(issue)
-      return
-    }
     
     issue.newHtml = fixHeaders()
     handleActiveIssue(issue)
@@ -200,8 +190,6 @@ export default function TableHeadersForm({
     setSelectedValue(newValue)
   }
 
-  
-
   return (
     <>
       {/* OPTION 1: Add label. ID: "SELECT_DIRECTION" */}
@@ -212,10 +200,11 @@ export default function TableHeadersForm({
           setActiveOption = {setActiveOption}
           option = {FORM_OPTIONS.SELECT_DIRECTION}
           labelId = "headerDirectionLabel"
-          labelText = {t('form.table_headers.selection_description')}
+          labelText = {t('form.table_headers.decision.data')}
         />
         {activeOption === FORM_OPTIONS.SELECT_DIRECTION && (
           <>
+            <div className="instructions mb-2">{t('form.table_headers.selection_description')}</div>
             <div className="flex-column indented gap-1" role="radiogroup" aria-labelledby="headerDirectionLabel">
               { radioOptions.map(value => (
                 <RadioSelector
@@ -244,12 +233,12 @@ export default function TableHeadersForm({
           isDisabled={isDisabled}
           setActiveOption={setActiveOption}
           option={FORM_OPTIONS.MARK_DECORATIVE}
-          labelText = {t('form.table_headers.decoration_only')}
+          labelText = {t('form.table_headers.decision.no_data')}
         />
       </div>
 
       {/* OPTION 3: Mark as Reviewed. ID: "MARK_AS_REVIEWED" */}
-      <div className={`resolve-option ${activeOption === FORM_OPTIONS.MARK_AS_REVIEWED ? 'selected' : ''}`}>
+      {/* <div className={`resolve-option ${activeOption === FORM_OPTIONS.MARK_AS_REVIEWED ? 'selected' : ''}`}>
         <RadioSelector
           activeOption={activeOption}
           isDisabled={isDisabled}
@@ -257,7 +246,7 @@ export default function TableHeadersForm({
           option={FORM_OPTIONS.MARK_AS_REVIEWED}
           labelText = {t('fix.label.no_changes')}
         />
-      </div>
+      </div> */}
     </>
   )
 }

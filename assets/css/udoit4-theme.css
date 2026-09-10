@@ -184,7 +184,7 @@
 
       --background-color: #0F1117;
       --container-color: #161923;
-      --border-color: #3A4155;
+      --border-color: #48516A; /* #3A4155; */
       --progress-bar-background-color: #272c3f;
       --progress-bar-color: #2AB25E;
       --header-active-color: var(--link-color);
@@ -622,7 +622,7 @@
     }
 
     &::placeholder {
-      color: var(--text-secondary-color);
+      color: var(--text-disabled-color);
       opacity: 1;
     }
   }
@@ -830,6 +830,11 @@
       background-color: var(--help-color-background);
       border-color: var(--help-color-border);
       color: var(--text-secondary-color);
+    }
+
+    &.decision-container {
+      background-color: var(--table-header-background-color);
+      border-color: var(--border-color);
     }
 
     &.filled-container {
@@ -1070,6 +1075,18 @@
 
   .align-items-stretch {
     align-items: stretch;
+  }
+
+  .justify-self-start {
+    justify-self: flex-start;
+  }
+
+  .justify-self-end {
+    justify-self: flex-end;
+  }
+
+  .justify-self-center {
+    justify-self: center;
   }
 
   .align-self-start {

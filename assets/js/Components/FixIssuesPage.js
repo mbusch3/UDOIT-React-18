@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import FixIssuesFilters from './Widgets/FixIssuesFilters'
 import FixIssuesList from './Widgets/FixIssuesList'
+import IssueAffects from './Widgets/IssueAffects'
 import LearnMore from './Widgets/LearnMore'
 import UfixitWidget from './Widgets/UfixitWidget'
 import FixIssuesContentPreview from './Widgets/FixIssuesContentPreview'
 import LeftArrowIcon from './Icons/LeftArrowIcon'
 import RightArrowIcon from './Icons/RightArrowIcon'
 import CloseIcon from './Icons/CloseIcon'
-import { FORM_CLASSIFICATIONS, formNameFromRule } from '../Services/Ufixit'
+import { FORM_CLASSIFICATIONS, formFromIssue, formNameFromRule } from '../Services/Ufixit'
 import * as Html from '../Services/Html'
 import Api from '../Services/Api'
 
@@ -73,7 +74,9 @@ export default function FixIssuesPage({
   const [activeContentItem, setActiveContentItem] = useState(null)
   const [tempActiveContentItem, setTempActiveContentItem] = useState(null)
   const [contentItemsBeingScanned, setContentItemsBeingScanned] = useState([])
+  const [UfixitForm, setUfixitForm] = useState(null)
   const [showLearnMore, setShowLearnMore] = useState(false)
+  const [quickLoad, setQuickLoad] = useState((initialSeverity !== '' && initialSearchTerm === ''))
   const [markAsReviewed, setMarkAsReviewed] = useState(false)
   const [formInvalid, setFormInvalid] = useState(true)
   const [isErrorFoundInContent, setIsErrorFoundInContent] = useState(false)
@@ -241,9 +244,12 @@ export default function FixIssuesPage({
   // The initialSeverity prop is used when clicking a "Fix Issues" button from the main dashboard.
   useEffect(() => {
     let tempSeverity = initialSeverity || ISSUE_FILTER.ALL
-    if(initialSearchTerm) {
+    if (initialSearchTerm) {
       setSearchTerm(initialSearchTerm)
       setActiveFilters(Object.assign({}, defaultNoFilters))
+    }
+    else if (initialSeverity) {
+      setActiveFilters(Object.assign({}, defaultFilters, {[ISSUE_FILTER.TYPE.SEVERITY]: tempSeverity}, {[ISSUE_FILTER.TYPE.PUBLISHED]: ISSUE_FILTER.ALL}))
     }
     else {
       setActiveFilters(Object.assign({}, defaultFilters, {[ISSUE_FILTER.TYPE.SEVERITY]: tempSeverity}))
@@ -288,9 +294,17 @@ export default function FixIssuesPage({
 
     let tempFilteredContent = getFilteredContent(unfilteredIssues)
     setFilteredIssues(tempFilteredContent)
-    setGroupedList(groupList(tempFilteredContent))
+    let tempGroupedList = groupList(tempFilteredContent);
+    setGroupedList(tempGroupedList);
+    let tempState = WIDGET_STATE.LIST;
 
-    setWidgetState(WIDGET_STATE.LIST)
+    if (quickLoad && tempGroupedList.length > 0 && tempGroupedList[0].issues?.length > 0) {
+      setQuickLoad(false);
+      handleActiveIssue(tempGroupedList[0].issues[0]);
+      tempState = WIDGET_STATE.FIXIT;
+    }
+
+    setWidgetState(tempState);
 
   }, [activeFilters, searchTerm])
 
@@ -463,6 +477,8 @@ export default function FixIssuesPage({
       setActiveIssue(null)
       setActiveContentItem(null)
       setTempActiveIssue(null)
+      setUfixitForm(null)
+      setMarkAsReviewed(false)
       setWidgetState(WIDGET_STATE.LIST)
       setShowLearnMore(false)
       closeDialog()
@@ -471,6 +487,10 @@ export default function FixIssuesPage({
 
     setActiveIssue(newIssue)
     setMostRecentIssueId(newIssue.id)
+    setUfixitForm(() => formFromIssue(newIssue.issueData))
+    if(newIssue.isModified === undefined) {
+      setMarkAsReviewed(newIssue.status === ISSUE_FILTER.RESOLVED || newIssue.status === ISSUE_FILTER.FIXEDANDRESOLVED)
+    }
     
     // We ONLY want this to trigger events on a real change.
     if(widgetState !== WIDGET_STATE.FIXIT) {
@@ -508,7 +528,8 @@ export default function FixIssuesPage({
       document.getElementById('btn-learn-more-back')?.focus()
     }
     else {
-      document.getElementById('btn-learn-more-open')?.focus()
+      document.getElementById('decide-button')?.focus();
+      document.getElementById('btn-learn-more-open')?.focus();
     }
   }, [showLearnMore])
 
@@ -1011,6 +1032,11 @@ export default function FixIssuesPage({
               <section className='ufixit-widget-container'>
                 { tempActiveIssue && (
                   <>
+                    <IssueAffects
+                      t={t}
+                      issue={tempActiveIssue}
+                    />
+
                     <LearnMore
                       t={t}
                       tempActiveIssue={tempActiveIssue}
@@ -1021,6 +1047,7 @@ export default function FixIssuesPage({
                     <UfixitWidget
                       t={t}
                       instanceInfo={instanceInfo}
+                      UfixitForm={UfixitForm}
                       activeContentItem={activeContentItem}
                       activeOption={activeOption}
                       setActiveOption={setActiveOption}
@@ -1033,16 +1060,13 @@ export default function FixIssuesPage({
                       markAsReviewed={markAsReviewed}
                       setMarkAsReviewed={setMarkAsReviewed}
                       setFormInvalid={setFormInvalid}
+                      showLearnMore={showLearnMore}
                       handleLearnMoreClick={() => setShowLearnMore(true)}
-                      // sessionIssues={sessionIssues}
-                      // setTempActiveIssue={setTempActiveIssue}
-                      // severity={tempActiveIssue.severity}
-                      // showLearnMore={showLearnMore}
                       clickedInfo={clickedInfo}
                       setClickedInfo={setClickedInfo}
-                      // handleContentIssueSave={handleContentIssueSave}
                       setElementFocus={setElementFocus}
                       setPreviewData={setPreviewData}
+                      saveDisabled={formInvalid || !isErrorFoundInContent || noChanges || showLearnMore || contentItemsBeingScanned.includes(tempActiveIssue?.issueData?.contentItemId)}
                     />
                   </>
                 )}
@@ -1090,13 +1114,6 @@ export default function FixIssuesPage({
               { noChanges && (
                 <div className="subtext">{t('fix.label.no_changes_to_save')}</div>
               )}
-              <button
-                onClick={handleIssueSave}
-                className="btn btn-primary btn-icon-left"
-                disabled={formInvalid || !isErrorFoundInContent || noChanges || showLearnMore || contentItemsBeingScanned.includes(tempActiveIssue?.issueData?.contentItemId)}
-                tabIndex="0">
-                {t('form.submit')}
-              </button>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import RadioSelector from '../Widgets/RadioSelector'
 import { UFIXIT_OPTIONS } from '../../Services/Constants'
 import * as Html from '../../Services/Html'
 // The SensoryMisuseForm.css file is a copy of the tinyMCE oxide skin file, which does not consistently load at runtime, so we include it here
@@ -19,7 +20,8 @@ export default function SensoryMisuseForm({
 }) {
 
   const FORM_OPTIONS = {
-    EDIT_TEXT: UFIXIT_OPTIONS.ADD_TEXT
+    EDIT_TEXT: UFIXIT_OPTIONS.ADD_TEXT,
+    MARK_AS_REVIEWED: UFIXIT_OPTIONS.MARK_AS_REVIEWED
   }
 
   const [editorHtml, setEditorHtml] = useState(Html.getIssueHtml(activeIssue))
@@ -63,9 +65,21 @@ export default function SensoryMisuseForm({
     }
     
     let html = Html.getIssueHtml(activeIssue)
-    setEditorHtml(html)
-    setActiveOption(FORM_OPTIONS.EDIT_TEXT)
-    setFormErrors([])
+    setEditorHtml(html);
+    setFormErrors([]);
+
+    const fixed = activeIssue.newHtml && (activeIssue.status === 1 || activeIssue.status === 3);
+    const reviewed = activeIssue.newHtml && (activeIssue.status === 2 || activeIssue.status === 3);
+    let startingOption = '';
+
+    if (reviewed){
+      startingOption = FORM_OPTIONS.MARK_AS_REVIEWED;
+    }
+    if (fixed) {
+      startingOption = FORM_OPTIONS.EDIT_TEXT;
+    }
+
+    setActiveOption(startingOption);
 
     tinymce.remove()
     tinymce.init({
@@ -95,16 +109,16 @@ export default function SensoryMisuseForm({
         // By default, certain commands like undo/redo and toggling things like bold and italic do not trigger the 'input' event,
         // meaning that the updatePreview function isn't called (which can affect saving).
         editor.on('ExecCommand', (e) => {
-          const updateCommands = ['mceToggleFormat', 'undo', 'redo']
+          const updateCommands = ['mceToggleFormat', 'undo', 'redo'];
           if(e.command && updateCommands.includes(e.command)) {
-            handleEditorChange(editor.getContent())
+            handleEditorChange(editor.getContent());
           }
         })
       }
     })
 
     return () => {
-      tinymce.remove()
+      tinymce.remove();
     }
   }, [activeIssue])
 
@@ -224,25 +238,52 @@ export default function SensoryMisuseForm({
 
   return (
     <>
-      <div className="instructions">{t('form.sensory_misuse.label.instructions')}</div>
-      { sensoryErrors.length > 0 ? (
-        <div className="flex-row flex-wrap gap-1 mt-2 mb-2">
-          <div className="ufixit-widget-label flex-column align-self-center">{t('form.sensory_misuse.label.highlight')}</div>
-          {sensoryErrors.map((word) => (
-            <button
-              className="tag"
-              tabIndex="0"
-              key={word}
-              onClick={() => goToWord(word)}
-            >
-              {word}
-            </button>
-          ))}
+      {/* OPTION 1: Edit text. ID: "EDIT_TEXT" */}
+      <div className={`resolve-option ${activeOption === FORM_OPTIONS.EDIT_TEXT ? 'selected' : ''}`}>
+        <RadioSelector
+          activeOption={activeOption}
+          isDisabled={isDisabled}
+          setActiveOption={setActiveOption}
+          option={FORM_OPTIONS.EDIT_TEXT}
+          labelId = 'edit-text-label'
+          labelText = {t('form.sensory_misuse.decision.instructions')}
+        />
+
+        <div
+          inert={activeOption === FORM_OPTIONS.EDIT_TEXT ? undefined : true}
+          className={activeOption === FORM_OPTIONS.EDIT_TEXT ? "" : "hidden"}>
+          <div className="instructions mb-2">{t('form.sensory_misuse.label.instructions')}</div>
+          { sensoryErrors.length > 0 ? (
+            <div className="flex-row flex-wrap gap-1 mb-2">
+              <div className="ufixit-widget-label flex-column align-self-center">{t('form.sensory_misuse.label.highlight')}</div>
+              {sensoryErrors.map((word) => (
+                <button
+                  className="tag"
+                  tabIndex="0"
+                  key={word}
+                  onClick={() => goToWord(word)}
+                >
+                  {word}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="ufixit-widget-label mb-2">{t('form.sensory_misuse.label.none')}</div>
+          )}
+          <textarea id="sensory-misuse-textarea"></textarea>
         </div>
-      ) : (
-        <div className="ufixit-widget-label mt-2">{t('form.sensory_misuse.label.none')}</div>
-      )}
-      <textarea id="sensory-misuse-textarea"></textarea>
+      </div>
+
+      {/* OPTION 2: Mark as Reviewed. ID: "MARK_AS_REVIEWED" */}
+      <div className={`resolve-option ${activeOption === FORM_OPTIONS.MARK_AS_REVIEWED ? 'selected' : ''}`}>
+        <RadioSelector
+          activeOption={activeOption}
+          isDisabled={isDisabled}
+          setActiveOption={setActiveOption}
+          option={FORM_OPTIONS.MARK_AS_REVIEWED}
+          labelText = {t('form.sensory_misuse.decision.no_instructions')}
+        />
+      </div>
     </>
   )
 }
