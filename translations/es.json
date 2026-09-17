@@ -611,7 +611,6 @@
   "rule.desc.element_tabbable_role_valid": "",
   "rule.desc.iframe_interactive_tabbable": "",
   "rule.info.aria_activedescendant_tabindex_valid": "El elemento resaltado tiene un atributo <code>aria-activedescendant</code>, que requiere que sea interactivo. Si debe ser interactivo, agrega el atributo <code>tabindex=&quot;0&quot;</code>. De lo contrario, elimina el atributo en conflicto.",
-  "rule.info.element_scrollable_tabbable": "El área resaltada parece ser desplazable. Para que los usuarios de teclado puedan desplazarse, el área debe agregarse a la navegación por teclado.",
   "rule.info.element_tabbable_role_valid": "El elemento resaltado puede ser alcanzado por teclado, pero tiene un <code>role</code> que no es interactivo. Si debe ser interactivo, elimina el <code>role</code> o cámbialo por un <a href='https://www.w3.org/TR/wai-aria-1.2/#widget' target='_blank'>rol de widget válido</a>. De lo contrario, agrega el atributo <code>tabindex=&quot;-1&quot;</code>.",
   "rule.info.iframe_interactive_tabbable": "Si este contenido incrustado es interactivo, debe agregarse a la navegación por teclado.",
 
@@ -681,7 +680,6 @@
   "rule.desc.list_children_valid": "",
   "rule.desc.list_markup_review": "",
   "rule.desc.list_structure_proper": "",
-  "rule.info.list_markup_review": "",
 
   "form.media_captions.title": "El Contenido Multimedia Debe Tener Subtítulos y Transcripciones",
   "form.media_captions.summary": "Los archivos de video y audio deben tener subtítulos o transcripciones para asegurar que todos los usuarios puedan acceder al contenido, incluyendo a quienes tienen discapacidades auditivas o hablan diferentes idiomas.",

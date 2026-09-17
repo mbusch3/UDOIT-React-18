@@ -33,12 +33,11 @@ export const formNames = {
   HEADING_STYLE: 'heading_style',
   INPUT_LABEL: 'input_label',
   INVALID_ATTRIBUTE: 'invalid_attribute',
-  INVALID_CSS: 'invalid_css',
+  INLINE_CSS: 'inline_css',
   KEYBOARD_TABBABLE: 'keyboard_tabbable',
   LABEL: 'label',
   LABEL_UNIQUE: 'label_unique',
   LANGUAGE: 'language',
-  LINK: 'link',
   LIST: 'list',
   MEDIA_CAPTIONS: 'media_captions',
   MULTI_PART: 'multi_part',
@@ -46,8 +45,6 @@ export const formNames = {
   SENSORY_MISUSE: 'sensory_misuse',
   TABLE_CAPTION: 'table_caption',
   TABLE_HEADERS: 'table_headers',
-
-  INLINE_CSS: 'inline_css',
 
   REVIEW_ONLY: 'review_only',
 }
@@ -144,6 +141,7 @@ const rulesToFormNameMap = {
   img_alt_valid: formNames.ALT_TEXT,
   img_ismap_misuse: formNames.ALT_TEXT,
   style_background_decorative: formNames.ALT_TEXT,
+  svg_graphics_label: formNames.ALT_TEXT,
 
   a_text_purpose: formNames.ANCHOR_TEXT,
   area_alt_exists: formNames.ANCHOR_TEXT,
@@ -190,10 +188,9 @@ const rulesToFormNameMap = {
   // table_aria_descendants: formNames.INVALID_ATTRIBUTE,
   // table_scope_valid: formNames.INVALID_ATTRIBUTE,
 
-  text_spacing_valid: formNames.INVALID_CSS,
+  text_spacing_valid: formNames.INLINE_CSS,
 
   // aria_activedescendant_tabindex_valid: formNames.KEYBOARD_TABBABLE,
-  // element_scrollable_tabbable: formNames.KEYBOARD_TABBABLE,
   // element_tabbable_role_valid: formNames.KEYBOARD_TABBABLE,
   // iframe_interactive_tabbable: formNames.KEYBOARD_TABBABLE,
 
@@ -221,8 +218,6 @@ const rulesToFormNameMap = {
   form_label_unique: formNames.LABEL_UNIQUE,
 
   element_lang_valid: formNames.LANGUAGE,
-  html_lang_exists: formNames.LANGUAGE,
-  html_lang_valid: formNames.LANGUAGE,
 
   list_children_valid: formNames.LIST,
   list_markup_review: formNames.LIST,
@@ -233,10 +228,6 @@ const rulesToFormNameMap = {
   media_live_captioned: formNames.MEDIA_CAPTIONS,
   media_track_available: formNames.MEDIA_CAPTIONS,
 
-  aria_id_unique: formNames.SELECT_VALID_ID,
-  aria_complementary_label_visible: formNames.SELECT_VALID_ID,
-
-  text_sensory_misuse: formNames.SENSORY_MISUSE,
   // aria_child_valid: formNames.MULTI_PART,
   // aria_parent_required: formNames.MULTI_PART,
   // fieldset_label_valid: formNames.MULTI_PART,
@@ -244,22 +235,23 @@ const rulesToFormNameMap = {
   // figure_label_exists: formNames.MULTI_PART,
   // table_caption_nested: formNames.MULTI_PART,
 
-  // aria_complementary_label_visible: formNames.SELECT_VALID_ID,
-  // aria_id_unique: formNames.SELECT_VALID_ID,
+  aria_id_unique: formNames.SELECT_VALID_ID,
+  aria_complementary_label_visible: formNames.SELECT_VALID_ID,
+  table_headers_ref_valid: formNames.SELECT_VALID_ID,
+
   // aria_main_label_visible: formNames.SELECT_VALID_ID,
   // combobox_popup_reference: formNames.SELECT_VALID_ID,
   // error_message_exists: formNames.SELECT_VALID_ID,
-  // input_placeholder_label_visible: formNames.SELECT_VALID_ID,
   // label_ref_valid: formNames.SELECT_VALID_ID,
-  // table_headers_ref_valid: formNames.SELECT_VALID_ID,
+
+  text_sensory_misuse: formNames.SENSORY_MISUSE,
 
   table_caption_empty: formNames.TABLE_CAPTION,
 
   table_headers_exists: formNames.TABLE_HEADERS,
   table_structure_misuse: formNames.TABLE_HEADERS,
 
-  text_sensory_misuse: formNames.SENSORY_MISUSE,
-  text_spacing_valid: formNames.INLINE_CSS
+  text_sensory_misuse: formNames.SENSORY_MISUSE
 }
 
 /* When a REVIEW_ONLY rule uses the same summary as another rule, add it here.
@@ -274,9 +266,7 @@ export const sharedRuleSummaries = {
   form_submit_review: 'rule.summary.form_submit_button_exists',
   input_fields_grouped: 'rule.summary.input_checkboxes_grouped',
   input_onchange_review: 'rule.summary.form_interaction_review',
-  meta_refresh_delay: 'rule.summary.meta_redirect_optional', 
   select_options_grouped: 'rule.summary.input_checkboxes_grouped',
-  noembed_content_exists: 'rule.summary.embed_noembed_exists',
   page_title_valid: 'rule.summary.page_title_exists',
   script_onclick_misuse: 'rule.summary.script_focus_blur_review',
   script_select_review: 'rule.summary.script_focus_blur_review',
@@ -288,11 +278,10 @@ export const sharedRuleSummaries = {
 /* When a REVIEW_ONLY rule uses the same description as another rule, add it here.
    The key is the name of the rule, and the value is the en.json translation that should be used. */
 export const sharedRuleDescriptions = {
-  a_target_warning: 'rule.desc.meta_redirect_optional',
+  a_target_warning: 'rule.desc.meta_refresh_delay',
   aria_banner_single: 'form.label.learn_more',
   aria_child_tabbable: 'form.keyboard_tabbable.learn_more',
   aria_contentinfo_single: 'form.label.learn_more',
-  aria_keyboard_handler_exists: 'rule.desc.element_tabbable_visible',
   blink_elem_deprecated: 'rule.desc.blink_css_review',
   combobox_active_descendant: 'rule.desc.aria_activedescendant_valid',
   combobox_design_valid: 'rule.desc.aria_activedescendant_valid',
@@ -302,9 +291,7 @@ export const sharedRuleDescriptions = {
   form_submit_review: 'rule.desc.form_submit_button_exists',
   input_fields_grouped: 'rule.desc.input_checkboxes_grouped',
   input_onchange_review: 'rule.desc.form_interaction_review',
-  meta_refresh_delay: 'rule.desc.meta_redirect_optional',
   select_options_grouped: 'rule.desc.input_checkboxes_grouped',
-  noembed_content_exists: 'rule.desc.embed_noembed_exists',
   page_title_valid: 'rule.desc.page_title_exists',
   script_onclick_misuse: 'rule.desc.script_focus_blur_review',
   script_select_review: 'rule.desc.script_focus_blur_review',
@@ -360,7 +347,7 @@ export function disabilitiesFromRule(ruleId) {
       case formNames.HEADING_EMPTY:
       case formNames.HEADING_STYLE:
       case formNames.INPUT_LABEL:
-      case formNames.INVALID_CSS:
+      case formNames.INLINE_CSS:
       case formNames.LABEL:
       case formNames.LABEL_UNIQUE:
         disabilities = [disabilityTypes.COGNITIVE, disabilityTypes.VISUAL]
@@ -397,7 +384,6 @@ export function disabilitiesFromRule(ruleId) {
       case 'combobox_active_descendant':
       case 'combobox_design_valid':
       case 'combobox_focusable_elements':
-      case 'embed_noembed_exists':
       case 'img_longdesc_misuse':
       case 'meta_viewport_zoomable':
       case 'noembed_content_exists':
@@ -450,7 +436,6 @@ export function disabilitiesFromRule(ruleId) {
       case 'aria_descendant_valid':
       case 'element_tabbable_visible':
       case 'form_interaction_review':
-      case 'meta_redirect_optional':
       case 'meta_refresh_delay':
       case 'script_focus_blur_review':
       case 'script_onclick_misuse':
