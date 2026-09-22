@@ -15,16 +15,16 @@ class EqualAccessService {
 
     private function getSkipRules() {
         $backupRules = "
+            aria_content_in_landmark,    
             html_lang_exists,
             html_lang_valid,
             html_skipnav_exists,
             page_title_exists,
             page_title_valid,
-            skip_main_exists,
             skip_main_described,
+            skip_main_exists,
             style_highcontrast_visible,
-            style_viewport_resizable,
-            aria_content_in_landmark,
+            style_viewport_resizable,    
             text_quoted_correctly
         ";
 

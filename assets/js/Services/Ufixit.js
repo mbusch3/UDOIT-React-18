@@ -141,7 +141,7 @@ const rulesToFormNameMap = {
   img_alt_valid: formNames.ALT_TEXT,
   img_ismap_misuse: formNames.ALT_TEXT,
   style_background_decorative: formNames.ALT_TEXT,
-  svg_graphics_label: formNames.ALT_TEXT,
+  svg_graphics_labelled: formNames.ALT_TEXT,
 
   a_text_purpose: formNames.ANCHOR_TEXT,
   area_alt_exists: formNames.ANCHOR_TEXT,
@@ -257,22 +257,16 @@ const rulesToFormNameMap = {
 /* When a REVIEW_ONLY rule uses the same summary as another rule, add it here.
    The key is the name of the rule, and the value is the en.json translation that should be used. */
 export const sharedRuleSummaries = {
+  aria_attribute_conflict: 'rule.summary.aria_attribute_allowed',
   blink_elem_deprecated: 'rule.summary.blink_css_review',
   combobox_active_descendant: 'rule.summary.aria_activedescendant_valid',
   combobox_design_valid: 'rule.summary.aria_activedescendant_valid',
-  combobox_focusable_elements: 'rule.summary.aria_activedescendant_valid',
   element_mouseevent_keyboard: 'rule.summary.aria_keyboard_handler_exists',
   form_font_color: 'form.emphasis.summary',
-  form_submit_review: 'rule.summary.form_submit_button_exists',
   input_fields_grouped: 'rule.summary.input_checkboxes_grouped',
   input_onchange_review: 'rule.summary.form_interaction_review',
-  select_options_grouped: 'rule.summary.input_checkboxes_grouped',
-  page_title_valid: 'rule.summary.page_title_exists',
-  script_onclick_misuse: 'rule.summary.script_focus_blur_review',
-  script_select_review: 'rule.summary.script_focus_blur_review',
-  skip_main_described: 'rule.summary.html_skipnav_exists',
-  skip_main_exists: 'rule.summary.html_skipnav_exists',
-  style_viewport_resizable: 'rule.summary.meta_viewport_zoomable',
+  label_ref_valid: 'rule.summary.input_label_exists',
+  script_onclick_misuse: 'rule.summary.script_onclick_avoid',
 }
 
 /* When a REVIEW_ONLY rule uses the same description as another rule, add it here.
@@ -288,16 +282,11 @@ export const sharedRuleDescriptions = {
   combobox_focusable_elements: 'rule.desc.aria_activedescendant_valid',
   element_mouseevent_keyboard: 'rule.desc.aria_keyboard_handler_exists',
   form_font_color: 'form.emphasis.learn_more',
-  form_submit_review: 'rule.desc.form_submit_button_exists',
   input_fields_grouped: 'rule.desc.input_checkboxes_grouped',
   input_onchange_review: 'rule.desc.form_interaction_review',
   select_options_grouped: 'rule.desc.input_checkboxes_grouped',
-  page_title_valid: 'rule.desc.page_title_exists',
   script_onclick_misuse: 'rule.desc.script_focus_blur_review',
   script_select_review: 'rule.desc.script_focus_blur_review',
-  skip_main_described: 'rule.desc.html_skipnav_exists',
-  skip_main_exists: 'rule.desc.html_skipnav_exists',
-  style_viewport_resizable: 'rule.desc.meta_viewport_zoomable',
   widget_tabbable_single: 'rule.desc.widget_tabbable_exists'
 }
 
@@ -387,11 +376,8 @@ export function disabilitiesFromRule(ruleId) {
       case 'img_longdesc_misuse':
       case 'meta_viewport_zoomable':
       case 'noembed_content_exists':
-      case 'page_title_exists':
-      case 'page_title_valid':
       case 'style_background_decorative':
       case 'style_highcontrast_visible':
-      case 'style_viewport_resizable':
       case 'table_headers_related':
       case 'table_summary_redundant':
         disabilities = [disabilityTypes.VISUAL]
@@ -402,7 +388,6 @@ export function disabilitiesFromRule(ruleId) {
       case 'blink_elem_deprecated':
       case 'form_font_color':
       case 'form_submit_button_exists':
-      case 'form_submit_review':
       case 'input_onchange_review':
       case 'marquee_elem_avoid':
       case 'media_autostart_controllable':
@@ -412,7 +397,6 @@ export function disabilitiesFromRule(ruleId) {
       case 'application_content_accessible':
       case 'aria_banner_single':
       case 'aria_child_tabbable':
-      case 'aria_content_in_landmark':
       case 'aria_contentinfo_misuse':
       case 'aria_contentinfo_single':
       case 'aria_eventhandler_role_valid':
@@ -421,13 +405,10 @@ export function disabilitiesFromRule(ruleId) {
       case 'element_mouseevent_keyboard':
       case 'element_orientation_unlocked':
       case 'frame_src_valid':
-      case 'html_skipnav_exists':
       case 'input_checkboxes_grouped':
       case 'input_fields_grouped':
       case 'media_keyboard_controllable':
       case 'select_options_grouped':
-      case 'skip_main_described':
-      case 'skip_main_exists':
       case 'style_focus_visible':
       case 'widget_tabbable_exists':
       case 'widget_tabbable_single':

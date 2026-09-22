@@ -386,6 +386,7 @@
   "rule.desc.img_alt_null": "",
   "rule.desc.img_alt_redundant": "",
   "rule.desc.img_alt_valid": "",
+  "rule.desc.svg_graphics_labelled": "",
   "rule.info.aria_graphic_labelled": "In complex diagrams, charts, and graphs, each element with a <code>role</code> of &quot;graphics-document&quot;, &quot;graphics-object&quot;, or &quot;graphics-symbol&quot; should have alternative text.",
   "rule.info.imagebutton_alt_exists": "Buttons that use images must have alternative text that describes what the button does.",
   "rule.info.img_alt_decorative": "If an image is meant to be decorative, it should not contain any alternative text. Marking it as decorative here will remove the alternative text.",
@@ -663,8 +664,6 @@
   "form.language.error.invalidBCP": "Language must follow BCP47 guidelines",
   "form.language.error.invalidLang": "Please select language from dropdown menu",
   "rule.desc.element_lang_valid": "",
-  "rule.desc.html_lang_exists": "",
-  "rule.desc.html_lang_valid": "",
 
   "form.link.title": "Links Should Contain Text",
   "form.link.summary": "Links should have descriptive text that clearly indicates where the link will take the user, not just \"click here\" or \"more info\".",
@@ -824,29 +823,28 @@
   "rule.desc.application_content_accessible": "<h3>Interactive Applications</h3><p>The <code>role=&quot;application&quot;</code> attribute is used to indicate that a section of a web page contains an interactive application, such as a map or a game. When this role is applied, screen readers switch from their default &quot;document&quot; mode to &quot;application&quot; mode, which changes how they interact with the content.</p><p>When using the <code>role=&quot;application&quot;</code> attribute, only focusable elements are accessible to screen readers and keyboard users. This means that any non-focusable elements, such as plain text or images, will be ignored by screen readers and cannot be reached using a keyboard. Unless these elements are purely decorative, they must be implemented in an accessible way.</p><h3>Best Practices</h3><ul><li>If text is a label or description of an interactive element, give the text an <code>id</code> and use the <code>aria-labelledby</code> or <code>aria-describedby</code> attribute to reference to the text</li><li>Place important text or images inside a focusable element that has the <code>role=&quot;document&quot;</code> or <code>role=&quot;article&quot;</code> attribute</li><li>Test the application with a screen reader and keyboard to ensure that it is fully accessible</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/TR/wai-aria-1.2/#application' target='_blank'>The &quot;application&quot; Role</a>, <a href='https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/' target='_blank'>Developing a Keyboard Interface</a></p><p>Mozilla.org: <a href='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/application_role' target='_blank'>ARIA: Application Role</a></p>",
   
   "rule.title.aria_activedescendant_tabindex_valid": "Composite Widgets Must Be Keyboard Accessible",
-  "rule.summary.aria_activedescendant_tabindex_valid": "",
+  "rule.summary.aria_activedescendant_tabindex_valid": "Interactive widgets with multiple components, like comboboxes and textboxes, must be useable with only keyboard controls.",
   
   "rule.title.aria_activedescendant_valid": "Composite Widgets Require the \"aria-activedescendant\" Attribute",
   "rule.summary.aria_activedescendant_valid": "Certain interactive components, like comboboxes and textboxes, are required to use the <code>aria-activedescendant</code> attribute to indicate which element is currently active.",
   "rule.desc.aria_activedescendant_valid": "<h3>Composite Widgets</h3><p>Most interactive elements on a web page are simple and self-contained. For instance, a text <code>&lt;input&gt;</code> element can be clicked on, typed in, either active or disabled, and update its content without any other element (although you should have it linked to a <code>&lt;label&gt;</code> for accessibility).</p><p>However, some interactive elements are more complex and require multiple elements to work together. These are known as &quot;composite widgets,&quot; and include elements like comboboxes, listboxes, menus, and treeviews. When using composite widgets, it is important to use the <code>aria-activedescendant</code> attribute to indicate which part of the widget is currently active.</p><p>For instance, drop-down selection widgets like a navigation menu can include a composite &quot;container&quot; widget with multiple selectable options that belong to it. Each option should have a unique <code>id</code>, and the container would use the <code>aria_activedescendant</code> attribute to point to whichever option is currently selected. This allows screen readers and keyboard users to understand which element they are interacting with.</p><h3>Best Practices</h3><ul><li>Use the <code>aria-activedescendant</code> attribute on the container element of a composite widget to reference the currently active child element</li><li>Ensure that the active child element has a unique <code>id</code> that matches the value of the <code>aria-activedescendant</code> attribute</li><li>Test the composite widget with a screen reader and keyboard to ensure that it is fully accessible</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#keyboardnavigationinsidecomponents' target='_blank'>Keyboard Navigation Inside Components</a>, <a href='https://www.w3.org/WAI/ARIA/apg/patterns/combobox/' target='_blank'>Combobox Pattern</a></p><p>Mozilla.org: <a href='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant' target='_blank'>ARIA: aria-activedescendant Attribute</a></p>",
 
   "rule.title.aria_attribute_allowed": "ARIA Attributes Must Not Conflict with an Element's Role",
-  "rule.summary.aria_attribute_allowed": "",
+  "rule.summary.aria_attribute_allowed": "Every element has a <code>role</code> which may contain certain ARIA attributes, while other ARIA attributes create conflicts.",
 
   "rule.title.aria_attribute_conflict": "ARIA Attributes Must Not Conflict with HTML Attributes",
-  "rule.summary.aria_attribute_conflict": "",
 
   "rule.title.aria_attribute_exists": "ARIA Attributes Must Not Have Empty Values",
-  "rule.summary.aria_attribute_exists": "",
+  "rule.summary.aria_attribute_exists": "All attributes that start with <code>aria-</code> require an explicit value, and cannot be left blank.",
 
   "rule.title.aria_attribute_redundant": "ARIA Roles Should Not be Redundant",
-  "rule.summary.aria_attribute_redundant": "",
+  "rule.summary.aria_attribute_redundant": "If an element already has an ARIA role implicitly, it shouldn't be redeclared with the <code>role</code> attribute.",
 
   "rule.title.aria_attribute_required": "ARIA Roles Must Have Required Attributes",
-  "rule.summary.aria_attribute_required": "",
+  "rule.summary.aria_attribute_required": "Elements with ARIA roles often have required attributes, and cannot be properly described by assistive technologies without them.",
 
   "rule.title.aria_attribute_value_valid": "ARIA Values Must be Valid",
-  "rule.summary.aria_attribute_value_valid": "",
+  "rule.summary.aria_attribute_value_valid": "ARIA attributes have specific valid values, and must be spelled correctly.",
 
   "rule.title.aria_banner_single": "Pages Should Have Only One Header",
   "rule.summary.aria_banner_single": "Every page should only have one header, which can be either a <code>&lt;header&gt;</code> element or another element with a <code>role=&quot;banner&quot;</code>. Please remove the extra headers or change their roles.",
@@ -855,11 +853,7 @@
   "rule.summary.aria_child_tabbable": "Individual options in dropdown lists or menus should always be selectable using only the keyboard.",
 
   "rule.title.aria_child_valid": "Parent Elements Must Contain Valid Child Elements",
-  "rule.summary.aria_child_valid": "",
-
-  "rule.title.aria_content_in_landmark": "Content Should Always be Inside a Landmark Region",
-  "rule.summary.aria_content_in_landmark": "All content should be placed inside of a landmark region, such as a <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;footer&gt;</code>.",
-  "rule.desc.aria_content_in_landmark": "<h3>Navigating Using Landmarks</h3><p>Web content is typically laid out in consistent patterns: a header at the top, page navigation menus, main content, sidebars, footers, etc. Standard sections are known as &quot;landmarks,&quot; and they help assistive technology (AT) users orient themselves and easily navigate to various regions of a page.</p><p>When content is placed outside of any landmark regions, it can be difficult for AT users to find it. This is especially true for screen reader users, who may not be able to see the visual layout of the page. To ensure that all content is reachable, it should be placed inside of a landmark region, such as a <code>&lt;main&gt;</code> element or an element with a <code>role=&quot;main&quot;</code> attribute.</p><h3>Best Practices</h3><ul><li>Ensure that all primary content is placed inside of a landmark region</li><li>Use landmark elements like <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, and <code>&lt;footer&gt;</code> where possible</li></ul><h3>For More Information</h3><p>WebAIM.org: <a href='https://webaim.org/techniques/semanticstructure/' target='_blank'>Semantic Structure</a> and <a href='https://webaim.org/techniques/aria/#landmarks' target='_blank'>ARIA Landmark Roles</a></p><p>W3.org: <a href='https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11' target='blank'>Using ARIA Landmarks</a></p>",
+  "rule.summary.aria_child_valid": "Certain elements are designed to be used in parent-child pairs and never on their own, like dropdowns (<code>&lt;select&gt;</code>) and options (<code>&lt;option&gt;</code>).",
   
   "rule.title.aria_contentinfo_misuse": "Footers Should Only Exist on Pages with a <main> Region",
   "rule.summary.aria_contentinfo_misuse": "<code>&lt;footer&gt;</code> elements should only be used on pages with <code>&lt;main&gt;</code> elements.",
@@ -885,10 +879,10 @@
   "rule.desc.aria_keyboard_handler_exists": "<h3>Keyboard Accessibility</h3><p>Some users cannot use a mouse or trackpad due to physical limitations. When this is the case, they may have a custom device that helps them navigate. These devices translate interactions, from rough muscle control to voice commands, into equivalent keystrokes. Any mouse-based interaction, such as clicking on a link, should have a keyboard equivalent.</p><p>Sometimes, customized code is used to add interactivity to elements that don't normally have any. If there is any code that is triggered by an input &quot;event&quot; from a mouse, like <code>onclick</code> or <code>onmouseover</code>, it should also be triggered by an equivalent keyboard event.</p><table><caption>Mouse Events and Equivalent Keyboard Events</caption><thead><tr><th scope='col'>Mouse Event</th><th scope='col'>Keyboard Event</th></tr></thead><tbody><tr><td><code>onmousedown</code></td><td><code>onkeydown</code></td></tr><tr><td><code>onmouseup</code></td><td><code>onkeyup</code></td></tr><tr><td><code>onclick</code></td><td><code>onkeypress</code></td></tr><tr><td><code>onmouseover</code></td><td><code>onfocus</code></td></tr><tr><td><code>onmouseout</code></td><td><code>onblur</code></td></tr></tbody></table><h3>Best Practices</h3><p>All interactive elements from links to buttons should be tested in the following ways:</p><ul><li>They should be reachable with a keyboard (usually by pressing tab and shift-tab to navigate)</li><li>They should be triggered with a keyboard (usually by pressing enter or spacebar)</li><li>If the interaction triggers a popup window, the keyboard focus should be moved to the popup when it opens, and back to the interactive element when it closes</li><li>Any custom code that is triggered by the mouse input should also be triggered by equivalent keyboard input</li></ul><h3>For More Information</h3><p>WebAIM.org: <a href='https://webaim.org/techniques/keyboard/' target='_blank'>Keyboard Accessibility</a></p><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html' target='_blank'>Keyboard (Level A)</a></p>",
 
   "rule.title.aria_main_label_visible": "Main Page Sections Should Have Visible Labels",
-  "rule.summary.aria_main_label_visible": "",
+  "rule.summary.aria_main_label_visible": "Main content areas should have a unique and visible label.",
 
   "rule.title.aria_parent_required": "Child Elements Must Belong to Valid Parent Elements",
-  "rule.summary.aria_parent_required": "",
+  "rule.summary.aria_parent_required": "Certain elements are designed to be used in parent-child pairs and never on their own, like dropdowns (<code>&lt;select&gt;</code>) and options (<code>&lt;option&gt;</code>).",
 
   "rule.title.blink_css_review": "Content Should Not Blink or Flash",
   "rule.summary.blink_css_review": "Blinking and other constant motion can be a severe distraction for users with cognitive disabilities, ADHD, or low vision. If the blinking is essential, ensure that it can be paused, stopped, or hidden.",
@@ -899,22 +893,21 @@
   "rule.title.combobox_active_descendant": "Comboboxes Must Use Correct Interaction Patterns",
 
   "rule.title.combobox_autocomplete_valid:": "Autocomplete Values Must be Valid",
-  "rule.summary.combobox_autocomplete_valid:": "",
+  "rule.summary.combobox_autocomplete_valid:": "The <code>aria-autocomplete</code> attribute can only be placed on text input elements.",
 
   "rule.title.combobox_design_valid:": "Comboboxes Must Use Correct Interaction Patterns",
-  "rule.summary.combobox_design_valid:": "",
 
   "rule.title.combobox_focusable_elements": "Comboboxes Must Use Correct Interaction Patterns",
   "rule.info.combobox_focusable_elements": "Ensure that the <code>&lt;input&gt;</code> element receives focus when the combobox is activated, unless the <code>has-popup</code> attribute's value is <code>dialog</code>.",
   
   "rule.title.combobox_haspopup_valid:": "Comboboxes with Popups Must be Correctly Linked",
-  "rule.summary.combobox_haspopup_valid:": "",
+  "rule.summary.combobox_haspopup_valid:": "A combobox with the <code>aria-haspopup</code> attribute must link to a popup elemtn with the role of \"listbox\", \"grid\", \"tree\" or \"dialog\".",
 
   "rule.title.combobox_popup_reference:": "Comboboxes with Popups Must be Correctly Linked",
-  "rule.summary.combobox_popup_reference:": "",
+  "rule.summary.combobox_popup_reference:": "The ARIA attributes of <code>aria-controls</code> and <code>aria-owns</code> must refer to a valid ID.",
 
   "rule.title.dir_attribute_valid:": "Text Directionality Must be Valid",
-  "rule.summary.dir_attribute_valid:": "",
+  "rule.summary.dir_attribute_valid:": "The text direction (<code>dir</code>) attribute may only be \"ltr\", \"rtl\", or \"auto\".",
 
   "rule.title.download_keyboard_controllable": "Links Should be Operable via Keyboard",
   "rule.summary.download_keyboard_controllable": "Ensure that this download link is accessible to keyboard users.",
@@ -927,18 +920,23 @@
   "rule.desc.element_orientation_unlocked": "<h3>Content Orientation</h3><p>While it is possible to force content to only display in portrait or landscape mode, this can create accessibility barriers by preventing users from being able to see the content in an orientation that works best for them. For example, users with mobility impairments often have devices mounted in a specific orientation, and those with low vision may require large screen magnification in landscape mode. The only exception to this rule is if orientation is absolutely essential, like a piano keyboard emulator that is dependent on horizontal operation.</p><h3>Best Practices</h3><ul><li>Do not lock the orientation of content unless absolutely essential</li><li>Ensure that content is responsive and adapts to different screen sizes and orientations</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/orientation.html' target='_blank'>Orientation</a></p>",
 
   "rule.title.element_tabbable_role_valid": "Tabbable Elements Must Have Appropriate Roles",
+  "rule.summary.element_tabbable_role_valid": "Keyboard navigable elements should have a <a href='https://www.w3.org/TR/wai-aria-1.2/#widget_roles' target='_blank'>widget</a> <code>role</code> such as \"button\", \"link\", \"menuitem\", or \"tab\".",
 
   "rule.title.element_tabbable_visible": "Invisible Content Should Not be Accessible via Keyboard",
   "rule.summary.element_tabbable_visible": "The highlighted section of the page can be reached with a keyboard but may not be visible. Confirm that if users can use the tab or arrow keys to reach a specific section, it is also visible on the screen.",
   "rule.desc.element_tabbable_visible": "<h3>Keyboard Accessibility</h3><p>Some users cannot use a mouse or trackpad due to physical limitations. When this is the case, they may have a custom device that helps them navigate. These devices translate interactions, from rough muscle control to voice commands, into equivalent keystrokes.</p><h3>Keyboard Navigation</h3><p>Normally, all interactive elements should be reachable without a mouse by using the arrow keys, <code>tab</code>, and <code>shift + tab</code> on the keyboard. When the user navigates this way, the item they are currently on should have a clear visual indicator that shows that it is active, usually a thick outline. In this case, it appears that there may be an interactive element that can be reached by the keyboard, but may be invisible, off-screen, or too small to see.</p><h3>Best Practices</h3><ul><li>Confirm that the highlighted area is reachable with a keyboard (usually by pressing <code>tab</code> and <code>shift + tab</code> to navigate)</li><li>Confirm that when the element is focused on, that it is visible on screen with a clear visual indicator that it has received focus, like an outline.</li></ul><h3>For More Information</h3><p>WebAIM.org: <a href='https://webaim.org/techniques/keyboard/' target='_blank'>Keyboard Accessibility</a></p><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html' target='_blank'>Keyboard (Level A)</a></p>",
 
   "rule.title.error_message_exists": "Error Messages Must Be Visible",
+  "rule.summary.error_message_exists": "The <code>aria-errormessage</code> attribute must refer to a valid ID.",
 
   "rule.title.fieldset_label_valid": "Input Groups Should Each Have a Label",
+  "rule.summary.fieldset_label_valid": "Every <code>&lt;fieldset&gt;</code> element must have a unique visible label.",
 
   "rule.title.fieldset_legend_valid": "Input Groups Should Each Have a Label",
+  "rule.summary.fieldset_legend_valid": "Every <code>&lt;fieldset&gt;</code> element should have exactly one <code>&lt;legend&gt;</code> element with a descriptive label.",
 
   "rule.title.figure_label_exists": "Every <figure> Element Should Have a Label",
+  "rule.summary.figure_label_exists": "Every <code>&lt;figure&gt;</code> should be labelled either with a <code>&lt;figcaption&gt;</code> element or with the <code>aria-labelledby</code> attribute.",
 
   "rule.title.form_font_color": "Color Must Not be the Only Way to Convey Form Information",
 
@@ -954,11 +952,8 @@
   "rule.summary.frame_src_valid": "The highlighted content comes from another website. Please verify that it doesn't introduce any accessibility barriers. For instance, videos should be captioned, images should have alternative text, buttons and controls should work with keyboards as well as mice, etc.",
   "rule.desc.frame_src_valid": "<h3>Reviewing External Content</h3><p>UDOIT cannot run an accessibility scan on content when it is embedded from another website. However, you can should review the content manually to ensure that it is accessible. The primary things to check for are:</p><ul><li>Videos should have captions or transcripts</li><li>Images should have alternative text</li><li>Text should use proper headings and have strong color contrast</li><li>Buttons and controls should work with keyboards as well as mice</li></ul><h3>Best Practices</h3><ul><li>Always review external content manually to ensure that it is accessible</li><li>If needed, consider contacting an Accessibility Specialist for assistance</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/test-evaluate/preliminary/' target='_blank'>Easy Checks - A First Review of Web Accessibility</a></p>",
 
-  "rule.title.html_skipnav_exists": "Every Page Should Have a \"Skip to Main Content\" Link",
-  "rule.summary.html_skipnav_exists": "Users should always have a convenient way to skip directly to the main content of a page, especially if there are long navigation menus or other repeated content at the top of the page.",
-  "rule.desc.html_skipnav_exists": "<h3>Providing Easy Navigation</h3><p>Often, websites contain detailed headers, with menus or lists of links that can help with navigation. However, for users who rely on assistive technologies like screen readers, being required to manually move through a long list of repetitive content every time a new page is visited can be frustrating and difficult.</p><p>Whenever a web page has the same navigation or header on every page, there must be a simple way to bypass it or skip directly to the main content. This can be done in multiple ways:</p><ul><li>Enclose the page's primary content in a <code>&lt;main&gt;</code> element or an element with the <code>role=&quot;main&quot;</code> attribute.</li><li>Include a &quot;Skip to main content&quot; link at the very beginning of the page that allows users to jump directly to the main content.</li><li>Provide appropriate headings using <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> elements to create a clear content structure. There should always only be a single <code>&lt;h1&gt;</code>, located at the beginning of your main content.</li></ul><p>Any of these methods will allow users to jump directly to the page content and bypass repetitive navigation.</p><h3>Best Practices</h3><ul><li>Use different HTML tags to help mark primary content, like <code>&lt;main&gt;</code> or headings (<code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>)<li>Include a skip &quot;Skip to main content&quot; link at the beginning of every page</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks' target='_blank'>Bypass Blocks</a></p>",
-
   "rule.title.iframe_interactive_tabbable": "Interactive Embedded Content Must be Reachable by Keyboard",
+  "rule.summary.iframe_interactive_tabbable": "Interactive content should never be excluded from the keyboard tab order with the <code>tabindex=\"-1\"</code> attribute.",
 
   "rule.title.img_longdesc_misuse": "Long Alternative Text Should be on a New Page",
   "rule.summary.img_longdesc_misuse": "The <code>longdesc</code> attribute should link to an HTML file that gives more context to an image.",
@@ -969,26 +964,33 @@
   "rule.desc.img_ismap_misuse": "<h3>Using Image Maps</h3><p>Image maps allow you to define clickable areas on an image, each linking to a different destination. Like any link on the web, it's crucial to provide clear text descriptions for each clickable area to ensure accessibility for users who cannot see the image map itself.</p><h3>Best Practices</h3><ul><li>Each clickable area in an image map should have a descriptive <code>alt</code> or <code>aria-label</code> attribute</li><li>If that is not possible, consider adding a duplicate list of links with descriptive text near the image map as an alternative</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html' target='_blank'>Non-text Content</a>, <a href='https://www.w3.org/WAI/WCAG22/Techniques/html/H24' target='_blank'>Providing Text Alternatives for the Area Elements of Image Maps</a></p>",
 
   "rule.title.input_autocomplete_valid": "Autocomplete Values Must be Valid",
+  "rule.summary.input_autocomplete_valid": "Input fields must only have valid <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete' target='_blank'>autocomplete values</a>, such as \"name\", \"email\", or \"country\".",
 
   "rule.title.input_checkboxes_grouped": "Related Input Fields Should be Explicitly Grouped",
   "rule.summary.input_checkboxes_grouped": "Related inputs, such as checkboxes and radio buttons, should be grouped together to provide a clear and consistent user experience.",
   "rule.desc.input_checkboxes_grouped": "<h3>Grouping Related Inputs</h3><p>When you have multiple related inputs, such as checkboxes or radio buttons, it's important to group them together. This helps users understand the relationship between the inputs and makes it possible for assistive technologies like screen readers to provide additional context, such as &quot;Group of 5 radio buttons&quot;.</p><p>Different types of inputs can be grouped using different techniques:</p><ul><li>Other than drop-down lists, related inputs can be enclosed in a <code>&lt;fieldset&gt;</code> element, which can include a visible <code>&lt;legend&gt;</code> element as a label for the group.</li><li>Related radio buttons, in addition to being enclosed in a <code>&lt;fieldset&gt;</code>, should have their <code>name</code> attributes set to the same value to indicate they are part of the same group.</li><li>In a drop-down list (<code>&lt;select&gt;</code> element), a long list of <code>&lt;option&gt;</code> elements can be grouped using the <code>&lt;optgroup&gt;</code> element. Each group should be labelled using the required <code>label</code> attribute. For example: <code>&lt;optgroup label=&quot;Group Name&quot;&gt;</code></li></ul><h3>Best Practices</h3><ul><li>Use <code>&lt;fieldset&gt;</code> elements with clear and descriptive <code>&lt;legend&gt;</code> elements to group related inputs together</li><li>Long lists of <code>&lt;option&gt;</code> elements should be grouped using <code>&lt;optgroup&gt;</code> elements</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships' target='_blank'>Info and Relationships</a></p><p>Mozilla.org: <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset' target='_blank'>The Field Set Element</a>, <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup' target='_blank'>The Option Group Element</a></p>",
 
   "rule.title.input_fields_grouped": "Related Input Fields Should be Explicitly Grouped",
-
+  
   "rule.title.input_haspopup_conflict": "Input Lists Should Not Have Popups",
+  "rule.summary.input_haspopup_conflict": "Input fields with the <code>list</code> attribute are automatically assigned the \"listbox\" popup, and should not also have the <code>aria-haspopup</code> attribute defined.",
 
-  "rule.title.input_label_after": "Labels for Checkboxes and Radio Buttons Should Appear After Them",
+  "rule.title.input_label_after": "Checkboxes and Radio Buttons Should Appear Before Their Labels",
+  "rule.summary.input_label_after": "Input fields should follow common layout practices to avoid confusion; checkboxes and radio buttons should always appear before their labels.",
 
-  "rule.title.input_label_before": "Labels for Text Inputs and Dropdowns Should Appear Before Them",
+  "rule.title.input_label_before": "Text Inputs and Dropdowns Should Appear After Their Labels",
+  "rule.summary.input_label_before": "Input fields should follow common layout practices to avoid confusion; text inputs and dropdowns should always appear after their labels. ",
 
-  "rule.title.input_label_exists": "Input Elements Must Have Visible Labels",
+  "rule.title.input_label_exists": "Input Elements Must Have Labels",
+  "rule.summary.input_label_exists": "Every <code>&lt;input&gt;</code> should have a unique <code>id</code> and a <code>&lt;label&gt;</code> with the <code>for</code> attribute connected to that <code>id</code>.",
 
-  "rule.title.input_label_visible": "Input Elements Must Have Visible Labels",
+  "rule.title.input_label_visible": "Input Element Labels Must Have Visible",
+  "rule.summary.input_label_visible": "Labels for <code>&lt;input&gt;</code> elements must be visible on screen, and not hidden or applied with <code>aria-label</code>.",
 
   "rule.title.input_onchange_review": "Users Should Be Alerted When Focus Changes",
 
-  "rule.title.label_content_exists": "Labels Should Clearly Describe Their Inputs",
+  "rule.title.label_content_exists": "Labels Should Contain Descriptive Text",
+  "rule.summary.label_content_exists": "Labels for <code>&lt;input&gt;</code> elements should clearly describe what the user is expected to enter.",
 
   "rule.title.label_ref_valid": "Labels Should Reference Valid Input Elements",
 
@@ -1016,19 +1018,17 @@
   "rule.summary.noembed_content_exists": "When using the <code>&lt;embed&gt;</code> tag to include content, such as a video or external site, ensure that a <code>title</code> attribute provides alternative content for users whose browsers do not support embedded content.",
   "rule.desc.noembed_content_exists": "<h3>Providing Alternative Content</h3><p>The <code>&lt;noembed&gt;</code> tag used to be the recommended way to provide alternative content when browsers didn't support or couldn't display the intended embedded content. When placed immediately after an <code>&lt;embed&gt;</code> tag, any text or images inside would be displayed as a fallback whenever the embedded content failed to load.</p><p>Nowadays, the <code>&lt;noembed&gt;</code> tag is obsolete and not reliably supported. Most things that used to be embedded now have their own custom elements. But if you DO need to use and <code>&lt;embed&gt;</code> tag, you should add a <code>title</code> attribute to the <code>&lt;embed&gt;</code> element as an alternative for assistive technologies.</p><ul><li>To embed a picture, use the <code>&lt;img&gt;</code> tag with appropriate <code>alt</code> text.</li><li>To embed a video, use the <code>&lt;video&gt;</code> tag with captions and controls.</li><li>To embed audio, use the <code>&lt;audio&gt;</code> tag with relevant transcripts.</li><li>To embed HTML web pages, use the <code>&lt;iframe&gt;</code> tag with an accessible label.</li><li>For custom interactive components, it <em>may</em> be appropriate to use the <code>&lt;object&gt;</code> tag.</li></ul><h3>Best Practices</h3><ul><li>Always include a <code>&lt;noembed&gt;</code> tag with alternative content immediately after the <code>&lt;embed&gt;</code> tag</li><li>Provide meaningful alternative content within the <code>&lt;noembed&gt;</code> tag</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Techniques/html/H46' target='_blank'>Using &lt;noembed&gt; with &lt;embed&gt;</a></p><p>W3 Schools: <a href='https://www.w3schools.com/tags/tag_object.asp' target='_blank'>HTML &lt;object&gt; Tag</a></p>",
 
-  "rule.title.page_title_exists": "Every Page Must Have a Clear Page Title",
-  "rule.summary.page_title_exists": "Every page should have a title that describes its content. This title appears in the browser tab and helps users identify the page when they have multiple tabs open.",
-  "rule.desc.page_title_exists": "<h3>Page Titles</h3><p>The title of a web page is one of the most important pieces of information for users. It appears in the browser tab, bookmarks, and search engine results, helping users identify and navigate to the page. A clear and descriptive title also helps users with cognitive disabilities understand the content and purpose of the page.</p><p>Page titles are not visible in the page content. Instead, they must be added in the HTML code using the <code>&lt;title&gt;</code> element inside the <code>&lt;head&gt;</code> section.</p><h3>Best Practices</h3><ul><li>Make sure every page has a unique and descriptive title</li><li>Keep titles concise; they should fit on a browser tab</li><li>Avoid using generic titles like &quot;Home&quot; or &quot;Untitled&quot;</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/page-titled.html' target='_blank'>Page Titled (Level A)</a></p><p>WebAIM.org: <a href='https://webaim.org/techniques/pagetitle/' target='_blank'>Page Titles</a></p>",
-  
   "rule.title.script_focus_blur_review": "Custom Scripts Should be Reviewed for Accessibility",
   "rule.summary.script_focus_blur_review": "Ensure that custom scripts do not cause unexpected changes like keyboard traps or focus shifts.",
   "rule.desc.script_focus_blur_review": "<h3>Custom Scripting</h3><p>UDOIT cannot analyze custom scripts for accessibility issues. However, you should review any custom JavaScript code manually to ensure that it does not create accessibility barriers. The primary things to check for are:</p><ul><li>Scripts should not create keyboard traps, where users cannot navigate away using the keyboard.</li><li>Scripts should not cause unexpected changes, such as opening new windows or shifting focus to a different element without warning.</li><li>If a script opens a popup window, the keyboard focus should be moved to the popup when it opens, and returned to the original element when it closes.</li><li>Scripts should not be used to simulate links; use standard links instead.</li></ul><h3>Best Practices</h3><ul><li>Always review custom scripts manually to ensure that they do not create accessibility barriers</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html' target='_blank'>Info and Relationships</a>, <a href='https://www.w3.org/WAI/WCAG21/Understanding/predictable.html' target='_blank'>Predictable</a></p>",
 
   "rule.title.script_onclick_avoid": "Links Should Not be Created with Scripts",
+  "rule.summary.script_onclick_avoid": "Links should always created using <code>&lt;a&gt;</code> tags, and not triggered using <code>onclick</code> events, which are not accessible.",
 
   "rule.title.script_onlick_misuse": "Links Should Not be Created with Scripts",
 
   "rule.title.script_select_review": "Moving Through Options Should Not Trigger a Selection",
+  "rule.summary.script_select_review": "Keyboard users should be able to navigate through options without automatically triggering a selection.",
   
   "rule.title.select_options_grouped": "Related Dropdown Options Should be Grouped",
   "rule.summary.select_options_grouped": "If options in a dropdown menu have natural groupings, they should be placed in <code>&lt;optgroup&gt;</code> elements for easier navigation.",
@@ -1049,14 +1049,14 @@
   "rule.summary.style_hover_persistent": "Ensure that any content that appears when hovering with a mouse does not disappear when the mouse is over the content itself.",
   "rule.desc.style_hover_persistent": "<h3>Accessible Hover Effects</h3><p>Hover effects, also known as &quot;tool tips&quot; are often used to provide additional information or options when a user moves their mouse over an element. These effects are not recommended, since they usually can't be triggered by keyboards or touch screens. Another issue is for those who use screen magnification, these effects may disappear when the mouse is moved over the temporary content.</p><p>If hover effects are necessary, ensure that can be triggered with a keyboard and that they remain visible when the mouse is over the content itself. This can be done by using CSS to create a persistent hover effect that stays visible until the user moves the mouse away from the element.</p><h3>Best Practices</h3><ul><li>Avoid using hover effects whenever possible</li><li>If hover effects are necessary, ensure that they remain visible when the mouse is over the temporary content</li><li>Consider providing an alternative way to access the same information or options, such as a button or link that can be activated with a keyboard or touch screen</li></ul><h3>For More Information</h3><p>W3.org: <a href='https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html' target='_blank'>Content on Hover or Focus</a></p>",
 
-  "rule.title.svg_graphics_labelled": "Images Should Have Alternative Text",
-
   "rule.title.table_aria_descendants": "Table Rows and Cells Cannot Have 'role' Attributes",
-  "rule.summary.table_aria_descendants": "",
+  "rule.summary.table_aria_descendants": "Table rows (<code>&lt;tr&gt;</code>) and cells (<code>&lt;td&gt;</code>) have their own roles that should not be overwritten with the <code>role</code> attribute.",
 
   "rule.title.table_caption_nested": "Table Captions Must be Nested Inside the Table",
+  "rule.summary.table_caption_nested": "Every table's caption (<code>&lt;caption&gt;</code>) should be the first child nested in the <code>&lt;table&gt;</code> element.",
 
   "rule.title.table_headers_ref_valid": "Table Cells with \"headers\" Must Use Valid IDs",
+  "rule.summary.table_headers_ref_valid": "Data tables must be able to assign every cell to its respective headers. When individual cells use the <code>headers</code> attribute, its value should be a space-separated list of valid header <code>id</code> values.",
 
   "rule.title.table_headers_related": "Data Table Cells Must Always be Linked to Relevant Headers",
   "rule.summary.table_headers_related": "In complicated data tables where cells are merged, cells may need to be individually linked to their headers using the headers attribute. If you are using a table editor, this should be done automatically. If you are not using a table editor, you may need to add the headers attribute manually.",
