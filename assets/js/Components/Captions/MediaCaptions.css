@@ -267,6 +267,15 @@
           width: 100%;
           border: 1px solid var(--border-color);
           box-sizing: border-box;
+
+        }
+
+        &.audio-only video {
+          background-color: #3f4650;
+          background-image: url("../../../mediaAssets/audio-only.svg");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 18% auto;
         }
       }
 
@@ -300,15 +309,13 @@
     position: relative;
 
     .waveform-no-audio-note {
-      position: absolute;
-      top: 1.25rem;
-      right: 2rem;
-      font-size: .8em;
+      margin-block-end: .75rem;
       color: var(--text-secondary-color);
-      pointer-events: none;
+      font-size: .9em;
     }
 
     #waveform {
+      position: relative;
       border: 1px solid var(--border-color);
       border-radius: var(--element-radius);
       background-color: var(--background-color);

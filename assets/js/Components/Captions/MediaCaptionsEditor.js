@@ -97,6 +97,8 @@ export default function MediaCaptionsEditor({
   const [selectedCueId, setSelectedCueId] = useState(-1);
   const [waveError, setWaveError] = useState("");
   const [noAudioTrack, setNoAudioTrack] = useState(false);
+  const isAudioOnly = file?.fileData?.fileType === 'audio'
+    || file?.fileData?.metadata?.['content-type']?.startsWith('audio/');
   
   const videoElRef = useRef(null);
   const wavesurferRef = useRef(null);
@@ -140,7 +142,7 @@ export default function MediaCaptionsEditor({
       setVideoUrl(cachedMediaURLs[fileData.id].blobURL);
     }
     else {
-      downloadVideoFromLMS(fileData.id, fileData?.metadata?.content-type || '', fileData?.metadata?.fileSize || 0);
+      downloadVideoFromLMS(fileData.id, fileData?.metadata?.['content-type'] || '', fileData?.metadata?.fileSize || 0);
     }
   }, [file])
 
@@ -255,6 +257,9 @@ export default function MediaCaptionsEditor({
     try {
       let api = new Api(instanceInfo);
       const response = await api.downloadFile(lmsFileId, contentType);
+      if (!response?.ok || !response.body) {
+        throw new Error(`Media download failed with status ${response?.status || 'unknown'}`);
+      }
       if (response.headers.has('Content-Length')) {
         setFileTotalSize(response.headers.get('Content-Length'));
       }
@@ -273,7 +278,10 @@ export default function MediaCaptionsEditor({
       }
 
       setFileTotalSize(tempFileLoadedSize);
-      const blob = new Blob(chunks);
+      const responseContentType = response.headers.get('Content-Type')?.split(';')[0]
+        || contentType
+        || (isAudioOnly ? 'audio/mpeg' : 'video/mp4');
+      const blob = new Blob(chunks, { type: responseContentType });
       let tempURL = URL.createObjectURL(blob);
       setVideoUrl(tempURL);
       updateMediaURL(lmsFileId, tempURL, tempFileLoadedSize);
@@ -594,15 +602,20 @@ export default function MediaCaptionsEditor({
 
   const handleWaveformError = async (ws, error) => {
     console.error("Error loading waveform: ", error);
+    if (silentWaveformRef.current) return;
+
     const duration = videoElRef.current?.duration;
-    if (!silentWaveformRef.current && Number.isFinite(duration) && duration > 0) {
+    if (Number.isFinite(duration) && duration > 0) {
       silentWaveformRef.current = true;
+      setNoAudioTrack(true);
+      setWaveError("");
       try {
         await ws.load("", [new Float32Array(1024)], duration);
-        setNoAudioTrack(true);
         return;
       } catch (fallbackError) {
         console.error("Error loading silent waveform: ", fallbackError);
+        setIsLoading(false);
+        return;
       }
     }
     setWaveError(t('form.media.label.error_waveform'));
@@ -618,7 +631,13 @@ export default function MediaCaptionsEditor({
   }, [cues, wavesurferRef]);
 
   const handleLoadError = (e) => {
-    console.error("Error loading media: ", e);
+    const media = e.currentTarget;
+    console.error("Error loading media:", {
+      code: media.error?.code,
+      message: media.error?.message,
+      networkState: media.networkState,
+      readyState: media.readyState,
+    });
     setError(t('form.media.label.error_lms_download'));
     setIsLoading(false);
   }
@@ -1183,7 +1202,7 @@ export default function MediaCaptionsEditor({
                   <ExpandIcon className="icon-md" aria-hidden="true" />
                 </button>
               </div>
-            <div id="video-container">
+            <div id="video-container" className={isAudioOnly ? "audio-only" : undefined}>
               <video
                 preload={"auto"}
                 ref={videoElRef}
@@ -1211,6 +1230,11 @@ export default function MediaCaptionsEditor({
         {/* Waveform focus container */}
         { error === "" && (
           <div id="waveform-container" >
+            {noAudioTrack && (
+              <div className="waveform-no-audio-note" role="status">
+                {t('form.media.label.no_audio_track')}
+              </div>
+            )}
             { waveError !== "" && (
               <div className="m-3 flex-row justify-content-center align-items-center flex-grow-1 gap-2">
                 <SeverityIssueIcon className="icon-lg udoit-issue" />
@@ -1248,9 +1272,6 @@ export default function MediaCaptionsEditor({
                 onError={handleWaveformError}
                 onClick={(self, e) => { handleWaveformClick(e) }}
               />
-              {noAudioTrack && cues.length === 0 && (
-                <div className="waveform-no-audio-note">{t('form.media.label.no_audio_track')}</div>
-              )}
               <div ref={timelineRef} />
             </div>
           </div>
