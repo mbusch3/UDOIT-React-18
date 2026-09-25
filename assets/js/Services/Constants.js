@@ -103,6 +103,7 @@ export const UFIXIT_OPTIONS = {
   DELETE_ELEMENT: 'delete-element',
   MARK_AS_REVIEWED: 'mark-as-reviewed',
   MARK_DECORATIVE: 'mark-decorative',
+  REVIEW_CONTENT: 'review-content',
   SELECT_ATTRIBUTE_VALUE: 'select-attribute-value',
   SELECT_TAG: 'select-tag'
 }

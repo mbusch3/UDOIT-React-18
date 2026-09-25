@@ -1,12 +1,10 @@
 .severity-header {
-  padding: calc(0.375 * var(--font-size)) calc(0.75 * var(--font-size));
-  min-height: 1.8em;
+  padding: .3em 1.5em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  font-size: calc(.9 * var(--font-size));
   font-weight: 400;
   border-bottom: 1px solid var(--border-color);
 
@@ -48,13 +46,15 @@
     display: flex;
     flex-direction: row;
     gap: .5em;
+    font-size: calc(.9 * var(--font-size));
   }
 
   .disability-icons {
     display: flex;
     flex-direction: row;
-    gap: .35em;
+    gap: .4em;
     align-items: center;
+    font-size: calc(.9 * var(--font-size));
 
     a {
       line-height: 0;

@@ -4,6 +4,7 @@ import AriaRoleForm from '../Components/Forms/AriaRoleForm'
 import BlockquoteForm from '../Components/Forms/BlockquoteForm'
 import ContrastForm from '../Components/Forms/ContrastForm'
 import EmbeddedContentTitleForm from '../Components/Forms/EmbeddedContentTitleForm'
+import EmbeddedContentReviewForm from '../Components/Forms/EmbeddedContentReviewForm'
 import EmphasisForm from '../Components/Forms/EmphasisForm'
 import HeadingEmptyForm from '../Components/Forms/HeadingEmptyForm'
 import HeadingStyleForm from '../Components/Forms/HeadingStyleForm'
@@ -28,6 +29,7 @@ export const formNames = {
   BLOCKQUOTE: 'blockquote',
   CONTRAST: 'contrast',
   EMBEDDED_CONTENT_TITLE: 'embedded_content_title',
+  EMBEDDED_CONTENT_REVIEW: 'embedded_content_review',
   EMPHASIS: 'emphasis',
   HEADING_EMPTY: 'heading_empty',
   HEADING_STYLE: 'heading_style',
@@ -68,6 +70,7 @@ const formTypes = {
   [formNames.BLOCKQUOTE]: BlockquoteForm,
   [formNames.CONTRAST]: ContrastForm,
   [formNames.EMBEDDED_CONTENT_TITLE]: EmbeddedContentTitleForm,
+  [formNames.EMBEDDED_CONTENT_REVIEW]: EmbeddedContentReviewForm,
   [formNames.EMPHASIS]: EmphasisForm,
   [formNames.HEADING_EMPTY]: HeadingEmptyForm,
   [formNames.HEADING_STYLE]: HeadingStyleForm,
@@ -103,6 +106,7 @@ export const FORM_CLASSIFICATIONS = {
   ],
 
   AUTO_REVIEW_RELATED: [
+    formNames.EMBEDDED_CONTENT_REVIEW,
     formNames.SENSORY_MISUSE,
   ],
 
@@ -167,6 +171,8 @@ const rulesToFormNameMap = {
   media_alt_brief: formNames.EMBEDDED_CONTENT_TITLE,
   media_alt_exists: formNames.EMBEDDED_CONTENT_TITLE,
   object_text_exists: formNames.EMBEDDED_CONTENT_TITLE,
+
+  frame_src_valid: formNames.EMBEDDED_CONTENT_REVIEW,
 
   style_color_misuse: formNames.EMPHASIS,
 
