@@ -16,7 +16,8 @@ export default function SensoryMisuseForm({
   activeOption,
   setActiveOption,
   formErrors,
-  setFormErrors
+  setFormErrors,
+  setPreviewData
 }) {
 
   const FORM_OPTIONS = {
@@ -124,7 +125,8 @@ export default function SensoryMisuseForm({
 
   useEffect(() => {
     const matchedWords = checkForSensoryWords(editorHtml);
-    setSensoryErrors(matchedWords)
+    setSensoryErrors(matchedWords);
+    setPreviewData(matchedWords);
   }, [editorHtml])
 
   const handleEditorChange = (html) => {
@@ -197,19 +199,34 @@ export default function SensoryMisuseForm({
           let text = result.textContent
           // we use regex to further filter the xpath result so we're only matching whole words
           // so "laptop" no longer matches, but "top", "top.", "top;" ... etc. matches
-          const wordRegex = new RegExp(`\\b${word}\\b`, 'i')
-          let match = wordRegex.exec(text)
+          const wordRegex = new RegExp(`\\b${word}\\b`, 'gi')
+          let matches = text.matchAll(wordRegex);
 
-          if (match) {
-            // create selection range
-            const range = editor.getDoc().createRange()
-            range.setStart(result, match.index)
-            range.setEnd(result, match.index + match[0].length)
+          let tempStart = 0;
+          let tempEnd = 0;
+          const existingRange = editor.selection.getRng();
+          let currentStart = existingRange?.endOffset || Infinity;
+          let preferred = false;
 
-            // set selection in tinymce then scroll to the selection
-            editor.selection.setRng(range)
-            editor.selection.scrollIntoView()
-            break
+          for (const match of matches) {
+
+            if (tempEnd === 0 || (!preferred && match.index > currentStart)) {
+              tempStart = match.index;
+              tempEnd = match.index + match[0].length;
+              if (tempStart > currentStart) {
+                preferred = true;
+              }
+            }
+            
+          }
+
+          if (tempEnd > 0) {
+            const range = editor.getDoc().createRange();
+            range.setStart(result, tempStart);
+            range.setEnd(result, tempEnd);
+
+            editor.selection.setRng(range);
+            editor.selection.scrollIntoView();
           }
           // otherwise, if the regex fails, continue iterating through xpath results
           result = xpathResults.iterateNext()
@@ -252,9 +269,9 @@ export default function SensoryMisuseForm({
         <div
           inert={activeOption === FORM_OPTIONS.EDIT_TEXT ? undefined : true}
           className={activeOption === FORM_OPTIONS.EDIT_TEXT ? "" : "hidden"}>
-          <div className="instructions mb-2">{t('form.sensory_misuse.label.instructions')}</div>
+          <div className="instructions mb-3">{t('form.sensory_misuse.label.instructions')}</div>
           { sensoryErrors.length > 0 ? (
-            <div className="flex-row flex-wrap gap-1 mb-2">
+            <div className="flex-row flex-wrap gap-1 mb-3">
               <div className="ufixit-widget-label flex-column align-self-center">{t('form.sensory_misuse.label.highlight')}</div>
               {sensoryErrors.map((word) => (
                 <button
@@ -268,7 +285,7 @@ export default function SensoryMisuseForm({
               ))}
             </div>
           ) : (
-            <div className="ufixit-widget-label mb-2">{t('form.sensory_misuse.label.none')}</div>
+            <div className="ufixit-widget-label mb-3">{t('form.sensory_misuse.label.none')}</div>
           )}
           <textarea id="sensory-misuse-textarea"></textarea>
         </div>

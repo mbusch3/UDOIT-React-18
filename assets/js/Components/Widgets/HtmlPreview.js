@@ -56,7 +56,9 @@ export default function HtmlPreview({
       return doc
     }
 
-    if(FORM_CLASSIFICATIONS.CLICKABLE_RELATED.includes(formNameFromRule(activeIssue.scanRuleId)) && activeOption === UFIXIT_OPTIONS.SELECT_ELEMENT){
+    const formName = formNameFromRule(activeIssue.scanRuleId);
+
+    if(FORM_CLASSIFICATIONS.CLICKABLE_RELATED.includes(formName) && activeOption === UFIXIT_OPTIONS.SELECT_ELEMENT){
       const allElements = doc.querySelectorAll('*')
       allElements.forEach((el) => {
         if (el.id?.includes('ufixit-alt-text-preview')) {
@@ -70,7 +72,7 @@ export default function HtmlPreview({
       })
     }
 
-    if (FORM_CLASSIFICATIONS.VALID_ID_RELATED.includes(formNameFromRule(activeIssue.scanRuleId)) && activeOption === UFIXIT_OPTIONS.SELECT_ELEMENT) {
+    if (FORM_CLASSIFICATIONS.VALID_ID_RELATED.includes(formName) && activeOption === UFIXIT_OPTIONS.SELECT_ELEMENT) {
       doc.querySelectorAll('.ufixit-temp-selected').forEach((el) => {
         el.classList.remove('ufixit-temp-selected')
       })
@@ -96,7 +98,7 @@ export default function HtmlPreview({
     }
 
     // If the issue edits the alt text, we need to show the auto-updating alt text preview
-    if (FORM_CLASSIFICATIONS.ALT_TEXT_RELATED.includes(formNameFromRule(activeIssue.scanRuleId)) && errorElement) {
+    if (FORM_CLASSIFICATIONS.ALT_TEXT_RELATED.includes(formName) && errorElement) {
       let altText = Html.getAccessibleName(errorElement, doc)
       altText = Html.sanitizeString(altText)
       
@@ -147,7 +149,7 @@ export default function HtmlPreview({
       }
     }
 
-    if (FORM_CLASSIFICATIONS.HEADINGS_RELATED.includes(formNameFromRule(activeIssue.scanRuleId))) {
+    if (FORM_CLASSIFICATIONS.HEADINGS_RELATED.includes(formName)) {
       const headingTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
 
       if (errorElement && headingTags.includes(errorElement.tagName.toLowerCase())) {
@@ -162,6 +164,17 @@ export default function HtmlPreview({
         headingElement.classList.add('ufixit-heading-highlight')
         headingElement.setAttribute('ufixit-heading-type', headingType)
       })
+    }
+
+    if (FORM_CLASSIFICATIONS.SENSORY_RELATED.includes(formName)) {
+      let innerHTML = errorElement.innerHTML;
+      if (Array.isArray(previewData)) {
+        previewData.forEach((sensoryWord) => {
+          const regex = new RegExp(`\\b${sensoryWord}+(?![^<>]*>)\\b`, 'gi');
+          innerHTML =  innerHTML.replace(regex, `<mark class="ufixit-mark" data-mark-start="${t('form.sensory_misuse.mark.start')}" data-mark-end="${t('form.sensory_misuse.mark.end')}">\$&</mark>`);
+        })
+      }
+      errorElement.innerHTML = innerHTML
     }
 
     return doc

@@ -778,6 +778,8 @@
   "form.sensory_misuse.label.instructions": "Make sure there aren't any instructions that depend on these sensory words:",
   "form.sensory_misuse.label.highlight": "Click to Highlight:",
   "form.sensory_misuse.label.none": "No Sensory Words Found",
+  "form.sensory_misuse.mark.start": "[ highlight start ]",
+  "form.sensory_misuse.mark.end": "[ highlight end ]",
   "rule.desc.text_sensory_misuse": "",
 
   "form.table_caption.title": "Tables Should Have Descriptive Captions",

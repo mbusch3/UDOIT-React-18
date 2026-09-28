@@ -189,6 +189,36 @@
     }
   }
 
+  /********************************************************
+   * On the Sensory Misuse form, we highlight text, but <mark> elements are not accessibly to screen readers.
+   * This code announces the beginning and end of highlights with invisible text.
+   * From: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/mark#accessibility
+   ********************************************************/
+  mark.ufixit-mark {
+
+    font-weight: bolder;
+    background-color: var(--pill-warning-border);
+
+    &::before,
+    &::after {
+      clip-path: inset(100%);
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+
+    &::before {
+      content: attr(data-mark-start);
+    }
+
+    &::after {
+      content: attr(data-mark-end);
+    }
+  }
+
   #ufixit-alt-text-preview {
     font-family: var(--text-font-family);
     background-color: var(--content-preview-elements-background-color);

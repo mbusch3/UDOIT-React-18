@@ -778,6 +778,8 @@
   "form.sensory_misuse.label.instructions":"Asegúrate que no Haya Ningunas Instrucciones que Dependan de Estas Palabras Sensoriales",
   "form.sensory_misuse.label.highlight": "Haz Clic Para Resaltar",
   "form.sensory_misuse.label.none": "No Se Encontraron Palabras Sensoriales",
+  "form.sensory_misuse.mark.start": "TODO: [ highlight start ]",
+  "form.sensory_misuse.mark.end": "TODO: [ highlight end ]",
   "rule.desc.text_sensory_misuse": "",
 
   "form.table_caption.title": "Las Tablas Deben Tener Subtítulos Descriptivos",

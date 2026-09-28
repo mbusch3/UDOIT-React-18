@@ -127,6 +127,10 @@ export const FORM_CLASSIFICATIONS = {
     formNames.LIST
   ],
 
+  SENSORY_RELATED: [
+    formNames.SENSORY_MISUSE
+  ],
+
   VALID_ID_RELATED: [
     formNames.SELECT_VALID_ID
   ]
