@@ -474,7 +474,6 @@ export const elementOrChildrenHasStyleAttributes = (
     return false
   }
 
-  const childTags = ['span', 'div', 'p', 'strong', 'em', 'b', 'i', 'u']
   if (elementHasStyleAttribute(element)) {
     return true
   }
@@ -526,7 +525,7 @@ export const removeStyleAttributesFromElementAndChildren = (
   const children = element.querySelectorAll(tags.join(','))
 
   // Remove color styles from the main element
-  element = removeElementStyleAttributes(element)
+  removeElementStyleAttributes(element)
 
   // Remove color styles from immediate child elements as well. Further descendants are ignored.
   for (let i = 0; i < children.length; i++) {
@@ -535,6 +534,54 @@ export const removeStyleAttributesFromElementAndChildren = (
   }
 
   return element
+}
+
+export const removeStyleTags = (
+  element, 
+  tags = ['strong', 'b', 'em', 'i', 'del', 's', 'u', 'mark']
+) => {
+  /* We want to strip all tags made for styles, so something like:
+   <h2>This is an <strong>IMPORTANT</strong> heading</h2>
+   becomes:
+   <h2>This is an IMPORTANT heading</h2>
+
+   It looks like it should be easy to do a string replace or a Regex function for
+   this, but tags may not be empty (<strong style="..." class="...">), so it would
+   be safer to examine each child element.
+  */
+
+  const cleanChildren = (parentElement, tags) => {
+    let children = parentElement.children;
+    for (let child of children) {
+      child = cleanChildren(child, tags);
+
+      let childTag = getTagName(child).toLowerCase();
+      if (tags.includes(childTag)) {
+        let replaceTagElement = document.createElement('replaceme');
+        replaceTagElement.innerHTML = child.innerHTML;
+        parentElement.replaceChild(replaceTagElement, child);
+      }
+      else if (childTag === "span") {
+        // If the span's only attribute is "style", remove it, too.
+        let spanAttrs = child.getAttributeNames();
+        if (spanAttrs.length === 0 || (spanAttrs.length === 1 && spanAttrs[0].toLowerCase() === 'style')) {
+          let replaceTagElement = document.createElement('replaceme');
+          replaceTagElement.innerHTML = child.innerHTML;
+          parentElement.replaceChild(replaceTagElement, child);
+        }
+      }
+    }
+    return parentElement;
+  }
+
+  element = cleanChildren(element, tags);
+  
+  let cleanedString = toString(element);
+  cleanedString = cleanedString.replaceAll("<replaceme>", "").replaceAll("</replaceme>", "");
+  let cleanedElement = toElement(cleanedString);
+
+  element = cleanedElement;
+  return cleanedElement;
 }
 
 export const findXpathFromElement = (element, id = null) => {

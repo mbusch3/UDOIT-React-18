@@ -691,20 +691,15 @@ export default function FixIssuesPage({
 
     const specificClassName = `udoit-ignore-${issue.scanRuleId.replaceAll("_", "-")}`
     if (markAsReviewed) {
-      if (issue.status === 1) {
-        issue.status = 3
-        issue.newHtml = Html.toString(Html.addClass(issue.newHtml, specificClassName))
-      } else if (issue.status === 0) {
-        issue.status = 2
-        issue.newHtml = Html.toString(Html.addClass(issue.sourceHtml, specificClassName))
+      // 0 (unreviewed) <=> 2 (reviewed)
+      // 1 (fixed) <=> 3 (fixedandreviewed)
+      if (issue.status < 2) {
+        issue.status += 2;
+        issue.newHtml = Html.toString(Html.addClass(issue.newHtml, specificClassName));
       }
-    } else {
-      if (issue.status === 3) {
-        issue.status = 1
-        issue.newHtml = Html.toString(Html.removeClass(issue.newHtml, specificClassName))
-      } else if (issue.status === 2) {
-        issue.status = 0
-        issue.newHtml = Html.toString(Html.removeClass(issue.sourceHtml, specificClassName))
+      else {
+        issue.status -= 2;
+        issue.newHtml = Html.toString(Html.removeClass(issue.newHtml, specificClassName));
       }
     }
 
@@ -808,20 +803,15 @@ export default function FixIssuesPage({
 
     const specificClassName = `udoit-ignore-${issue.scanRuleId.replaceAll("_", "-")}`
     if (markAsReviewed) {
-      if (issue.status === 1) {
-        issue.status = 3
-        issue.newHtml = Html.toString(Html.addClass(issue.newHtml, specificClassName))
-      } else if (issue.status === 0) {
-        issue.status = 2
-        issue.newHtml = Html.toString(Html.addClass(issue.sourceHtml, specificClassName))
+      // 0 (unreviewed) <=> 2 (reviewed)
+      // 1 (fixed) <=> 3 (fixedandreviewed)
+      if (issue.status < 2) {
+        issue.status += 2;
+        issue.newHtml = Html.toString(Html.addClass(issue.newHtml, specificClassName));
       }
-    } else {
-      if (issue.status === 3) {
-        issue.status = 1
-        issue.newHtml = Html.toString(Html.removeClass(issue.newHtml, specificClassName))
-      } else if (issue.status === 2) {
-        issue.status = 0
-        issue.newHtml = Html.toString(Html.removeClass(issue.sourceHtml, specificClassName))
+      else {
+        issue.status -= 2;
+        issue.newHtml = Html.toString(Html.removeClass(issue.newHtml, specificClassName));
       }
     }
 
