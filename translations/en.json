@@ -398,7 +398,11 @@
 
   "form.anchor_text.title": "Links Should Contain Descriptive Text",
   "form.anchor_text.summary": "Every link should have descriptive text that clearly indicates where the link will take the user, not just \"click here\" or \"more info\".",
-  "form.anchor_text.learn_more": "<h3>Link Text</h3><p>Screen readers generate a list of all the links on a page for blind users to efficiently navigate to desired content. In this context, multiple “read more” links on a page will only confuse users. Meaningful stand-alone link text is also helpful for users with cognitive disabilities.</p><h3>Best Practices</h3><ul><li>Provide clear and concise link text that can be understood out of context</li><li>Contextualize generic links such as “read more”</li></ul><h3>For More Information</h3><p>WebAIM.org: <a href='https://webaim.org/techniques/hypertext/link_text' target='_blank'>Links and Hypertext</a></p>",
+  "form.anchor_text.learn_more": "<h3>Link Text</h3><p>Screen readers generate a list of all the links on a page for blind users to efficiently navigate to desired content. In this context, multiple “read more” links on a page will only confuse users. Meaningful stand-alone link text is also helpful for users with cognitive disabilities.</p><h3>Examples of Non-Descriptive Text to Avoid</h3><ul><li>Click Here</li><li>Learn About This</li><li>Go To</li></ul><h3>Examples of Good Descriptive Text</h3><ul><li>Learn More About Accessibility</li><li>View Our Course Syllabus</li><li>Download the Module 1 Lecture Notes</li></ul><h3>Best Practices</h3><ul><li>Provide clear and concise link text that can be understood out of context</li><li>Contextualize generic links such as \"read more\"</li></ul><h3>For More Information</h3><p>WebAIM.org: <a href='https://webaim.org/techniques/hypertext/link_text' target='_blank'>Links and Hypertext</a></p>",
+  "form.anchor_text.decision": "Does the highlighted link provide <strong>enough context</strong> to describe where it leads?",
+  "form.anchor_text.decision.context": "Link provides enough context",
+  "form.anchor_text.decision.add_context": "Link does not provide enough context",
+  "form.anchor_text.decision.delete": "Link should be removed",
   "form.anchor.link_text": "Add Descriptive Text for Link",
   "form.anchor.delete_link": "Delete the Link Instead",
   "form.anchor.msg.text_descriptive": "Link text must be descriptive",
