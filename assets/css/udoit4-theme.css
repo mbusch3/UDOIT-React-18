@@ -33,6 +33,7 @@
     --text-color: #0A0A0A;
     --text-secondary-color: #434D5B;
     --text-disabled-color: #8B95A7;
+    --content-preview-elements-background-color: #555555;  /* The "H1" and "Screen Reader Text" helpers.
 
     /* Variants of Main Colors */
     --primary-color-dark: var(--primary-color);
@@ -855,7 +856,7 @@
     line-height: normal;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     border-radius: var(--element-radius);
 
@@ -869,6 +870,35 @@
       background-color: var(--pill-warning-background);
       border: 1px solid var(--pill-warning-border);
       color: var(--pill-warning-text);
+    }
+
+    .option-feedback-text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .option-feedback-number {
+      margin-inline-start: 0.5em;
+      width: 1.75em;
+      max-width: 1.75em;
+      height: 1.75em;
+      max-height: 1.75em;
+      box-sizing: border-box;
+
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      flex-grow: 1;
+      flex-shrink: 0;
+      
+      background-color: var(--content-preview-elements-background-color);
+      border-radius: 2em;
+      color: #fff;
+      font-size: 1em;
+      font-weight: 500;
     }
   }
 

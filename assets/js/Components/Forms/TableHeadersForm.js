@@ -117,13 +117,22 @@ export default function TableHeadersForm({
       }
     }
 
+    // Remove the <thead> and move its children to the <tbody>
+    let tableHead = table.querySelector("thead");
+    let tableBody = table.querySelector("tbody");
+
+    if (tableHead && tableBody) {
+      tableBody.append(...tableHead.children);
+      tableHead.remove();
+    }
+
     return table
   }
 
   const fixHeaders = () => {
-    const html = activeIssue.initialHtml
-    let table = Html.toElement(html)
-''
+    const html = activeIssue.initialHtml;
+    let table = Html.toElement(html);
+
     if(!table || !table.rows || table.rows.length === 0) {
       return Html.toString(table)
     }
@@ -142,6 +151,16 @@ export default function TableHeadersForm({
       }
     }
 
+    if ('row' === selectedValue || 'both' === selectedValue) {
+      for (let row of table.rows) {
+        let firstCell = row.cells[0]
+        let newCell = Html.renameElement(firstCell, 'th')
+        newCell.setAttribute('scope', 'row')
+        row.replaceChild(newCell, firstCell)
+      }
+    }
+
+    // Create a <thead> row before the <tbody> with its first row.
     if ('col' === selectedValue || 'both' === selectedValue) {
       let row = table.rows[0]
       
@@ -150,14 +169,14 @@ export default function TableHeadersForm({
         newCell.setAttribute('scope', 'col')
         row.replaceChild(newCell, cell)        
       }
-    }
 
-    if ('row' === selectedValue || 'both' === selectedValue) {
-      for (let row of table.rows) {
-        let firstCell = row.cells[0]
-        let newCell = Html.renameElement(firstCell, 'th')
-        newCell.setAttribute('scope', 'row')
-        row.replaceChild(newCell, firstCell)
+      let tableBody = table.querySelector("tbody");
+      if (tableBody) {
+        let tableHeader = Html.toElement("<thead></thead>");
+        let rowClone = Html.toElement(Html.toString(row));
+        tableHeader.append(rowClone);
+        tableBody.before(tableHeader);
+        row.remove();
       }
     }
 

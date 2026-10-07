@@ -88,7 +88,6 @@
   --lms-link-color: #1d6adb;
   --lms-border-color: #C7CDD1;
   --lms-background-color: #FFFFFF;
-  --content-preview-elements-background-color: #555555;
   --lms-text-font-family: LatoWeb, "Lato Extended", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --lms-heading-font-family: "Lato Extended", "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -291,6 +290,35 @@
   /* Errors without text won't have an outline unless they have a border to provide size */
   &:not(table) {
     border: 1px solid transparent;
+  }
+}
+
+.ufixit-aria-child-valid {
+  border: 2px dashed var(--error-color);
+  box-sizing: border-box;
+  position: relative;
+
+  &[ufixit-error-number] {
+    &::before {
+      content: attr(ufixit-error-number);
+      background-color: var(--content-preview-elements-background-color);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+
+      position: absolute;
+      height: 1.75em;
+      width: 1.75em;
+      border-radius: 2em;
+      top: -.5em;
+      right: -.5em;
+    }
   }
 }
 

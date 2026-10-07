@@ -428,23 +428,15 @@ export default function FixIssuesPage({
     
     // Find the target element from the original page and also create a replacement element from the issue data.
     let originalElement = Html.findElementWithIssue(fullPageDoc, issue.issueData)
-    let editedElement = Html.toElement(Html.getIssueHtml(issue.issueData))
+    let editedElement = Html.toElement(issue.issueData.newHtml)
     const originalElementTag = Html.getTagName(originalElement)
     const editedElementTag = Html.getTagName(editedElement)
-
-    const specificClassName = `udoit-ignore-${issue.issueData.scanRuleId.replaceAll("_", "-")}`
-    if (option === UFIXIT_OPTIONS.MARK_AS_REVIEWED || FORM_CLASSIFICATIONS.AUTO_REVIEW_RELATED.includes(formNameFromRule(issue.issueData.scanRuleId))) {
-      editedElement = Html.addClass(editedElement, specificClassName)
-    }
-    else {
-      editedElement = Html.removeClass(editedElement, specificClassName)
-    }
 
     if(!originalElement) {
       setIsErrorFoundInContent(false)
     }
     else {
-      if(option === UFIXIT_OPTIONS.DELETE_ELEMENT) {
+      if(option === UFIXIT_OPTIONS.DELETE_ELEMENT || issue.issueData.newHtml === '') {
         originalElement.remove()
       }
       else if(editedElement) { 

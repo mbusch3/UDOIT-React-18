@@ -1,3 +1,5 @@
+import { TAG_IMPLICIT_ROLE } from './Constants';
+
 // When JavaScript's DOMParser encounters certain elements, it WILL NOT parse them unless they are wrapped
 // in the required parent element. This function wraps the error HTML in the required parent element so that
 // the DOMParser can parse it correctly.
@@ -236,6 +238,30 @@ export function getTagName(element) {
   }
 
   return element.tagName
+}
+
+export function getRole(element) {
+  if (!element) {
+    return "";
+  }
+
+  if ('string' === typeof element) {
+    element = toElement(element)
+  }
+
+  if (!element || element?.nodeType === Node.DOCUMENT_FRAGMENT_NODE || element?.nodeType === Node.TEXT_NODE) {
+    return null
+  }
+
+  let role = getAttribute(element, "role")?.toLowerCase().trim();
+  if (!role || role === "") {
+    let tagName = getTagName(element);
+    if (tagName && typeof(tagName) === "string") {
+      role = TAG_IMPLICIT_ROLE[tagName.toLowerCase().trim()];
+    }
+  }
+
+  return role || "";
 }
 
 export function removeTag(element, tagName) {
@@ -605,7 +631,7 @@ export const findXpathFromElement = (element, id = null) => {
   return '/' + path.join('/')
 }
 
-export const findElementWithXpath = (content, xpath) => {
+export const findElementWithXpath = (content, xpath, ignoreParent = false) => {
   if (!content || !xpath) {
     return null
   }
@@ -637,6 +663,9 @@ export const findElementWithXpath = (content, xpath) => {
       return part
     });
     
+    if (ignoreParent) {
+      pathParts.shift();
+    }
     let selector = pathParts.join(' > ')
     let element = content.querySelector(selector)
     if(element) {

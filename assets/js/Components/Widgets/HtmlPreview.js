@@ -177,6 +177,22 @@ export default function HtmlPreview({
       errorElement.innerHTML = innerHTML
     }
 
+    if (FORM_CLASSIFICATIONS.MULTI_PART_RELATED.includes(formName)) {
+      if (Array.isArray(previewData)) {
+        previewData.forEach(childData => {
+          if (childData.xpath) {
+            let errorChild = Html.findElementWithXpath(errorElement, childData.xpath, true);
+            if (errorChild) {
+              Html.addClass(errorChild, "ufixit-aria-child-valid");
+              if (previewData.length > 1) {
+                Html.setAttribute(errorChild, "ufixit-error-number", childData.number);
+              }
+            }
+          }
+        });
+      }
+    }
+
     return doc
   }
 
@@ -266,7 +282,7 @@ export default function HtmlPreview({
         setIsErrorFoundInContent(false)
       }
       else {
-        if(activeOption === UFIXIT_OPTIONS.DELETE_ELEMENT) {
+        if(activeOption === UFIXIT_OPTIONS.DELETE_ELEMENT || activeIssue.newHtml === '') {
           // The element has already been deleted, so DON'T do anything else.
         }
         else if(editedElement) { 

@@ -1,5 +1,6 @@
 import AltTextForm from '../Components/Forms/AltTextForm'
 import AnchorTextForm from '../Components/Forms/AnchorTextForm'
+import AriaChildValidForm from '../Components/Forms/AriaChildValidForm'
 import AriaRoleForm from '../Components/Forms/AriaRoleForm'
 import BlockquoteForm from '../Components/Forms/BlockquoteForm'
 import ContrastForm from '../Components/Forms/ContrastForm'
@@ -25,6 +26,7 @@ export const formNames = {
   ALT_TEXT: 'alt_text',
   ANCHOR_TEXT: 'anchor_text',
   ARIA_ATTRIBUTE: 'aria_attribute',
+  ARIA_CHILD_VALID: 'aria_child_valid',
   ARIA_ROLE: 'aria_role',
   BLOCKQUOTE: 'blockquote',
   CONTRAST: 'contrast',
@@ -33,7 +35,7 @@ export const formNames = {
   EMPHASIS: 'emphasis',
   HEADING_EMPTY: 'heading_empty',
   HEADING_STYLE: 'heading_style',
-  INPUT_LABEL: 'input_label',
+  // INPUT_LABEL: 'input_label',
   INVALID_ATTRIBUTE: 'invalid_attribute',
   INVALID_CSS: 'invalid_css',
   KEYBOARD_TABBABLE: 'keyboard_tabbable',
@@ -66,6 +68,7 @@ const formTypes = {
   [formNames.ALT_TEXT]: AltTextForm,
   [formNames.ANCHOR_TEXT]: AnchorTextForm,
   // [formNames.ARIA_ATTRIBUTE]: AriaAttributeForm,
+  [formNames.ARIA_CHILD_VALID]: AriaChildValidForm,
   [formNames.ARIA_ROLE]: AriaRoleForm,
   [formNames.BLOCKQUOTE]: BlockquoteForm,
   [formNames.CONTRAST]: ContrastForm,
@@ -106,6 +109,7 @@ export const FORM_CLASSIFICATIONS = {
   ],
 
   AUTO_REVIEW_RELATED: [
+    formNames.ARIA_CHILD_VALID,
     formNames.EMBEDDED_CONTENT_REVIEW,
     formNames.SENSORY_MISUSE,
   ],
@@ -125,6 +129,10 @@ export const FORM_CLASSIFICATIONS = {
 
   LIST_RELATED: [
     formNames.LIST
+  ],
+
+  MULTI_PART_RELATED: [
+    formNames.ARIA_CHILD_VALID
   ],
 
   SENSORY_RELATED: [
@@ -161,6 +169,8 @@ const rulesToFormNameMap = {
   // aria_attribute_exists: formNames.ARIA_ATTRIBUTE,
   // aria_attribute_required: formNames.ARIA_ATTRIBUTE,
   // aria_attribute_value_valid: formNames.ARIA_ATTRIBUTE,
+
+  aria_child_valid: formNames.ARIA_CHILD_VALID,
 
   aria_role_valid: formNames.ARIA_ROLE,
   aria_role_allowed: formNames.ARIA_ROLE,
@@ -247,7 +257,7 @@ const rulesToFormNameMap = {
   aria_complementary_label_visible: formNames.SELECT_VALID_ID,
 
   text_sensory_misuse: formNames.SENSORY_MISUSE,
-  // aria_child_valid: formNames.MULTI_PART,
+
   // aria_parent_required: formNames.MULTI_PART,
   // fieldset_label_valid: formNames.MULTI_PART,
   // fieldset_legend_valid: formNames.MULTI_PART,
