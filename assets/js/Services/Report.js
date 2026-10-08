@@ -1,6 +1,7 @@
 import * as Html from "./Html";
 import { ISSUE_STATE, MEDIA_FILE_TYPES } from "./Constants";
 import { groupListIssues } from './Lists' 
+import { formNames, formNameFromRule } from './Ufixit'
 
 /** With all of the data inconsistency between the old and new issues, we need to double-check some things:
  *    1. If the issue is ACTIVE (found in the scan) but should be ignored, either because of the old
@@ -374,6 +375,8 @@ export function analyzeReport(report) {
     }
   });
 
+  let contentItemXpathForm = {};
+
   report.issues.forEach((issue) => {
     // By default, we assume the issue is included in the final report.
     let issueIgnored = false;
@@ -413,6 +416,27 @@ export function analyzeReport(report) {
         } else {
           // If we can't find the element in the content item body, we have to ignore the issue.
           issueIgnored = true;
+        }
+
+        // Lastly, if the same ContentItem + XPath is already an issue FOR THE SAME FORM, then ignore.
+        if (!contentItemXpathForm[contentItemId]) {
+          contentItemXpathForm[contentItemId] = {};
+        }
+        if (!contentItemXpathForm[contentItemId][issue.xpath]) {
+          contentItemXpathForm[contentItemId][issue.xpath] = [];
+        }
+
+        // The Review-Only form instead uses the scan rule to check for duplicates.
+        let formName = formNameFromRule(issue.scanRuleId);
+        if (formName === formNames.REVIEW_ONLY) {
+          formName = issue.scanRuleId;
+        }
+
+        if (contentItemXpathForm[contentItemId][issue.xpath].includes(formName)) {
+          issueIgnored = true;
+        }
+        else {
+          contentItemXpathForm[contentItemId][issue.xpath].push(formName);
         }
       }
     } else {
