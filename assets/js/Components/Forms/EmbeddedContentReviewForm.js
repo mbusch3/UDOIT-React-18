@@ -50,7 +50,6 @@ export default function EmbeddedContentReviewForm({
   }, [activeOption, hasReviewedKeyboard, hasReviewedContrast, hasReviewedCaptions]);
 
   const updateHtmlContent = () => {
-
     let issue = activeIssue;
     issue.newHtml = issue.initialHtml;
     handleActiveIssue(issue);
@@ -68,6 +67,16 @@ export default function EmbeddedContentReviewForm({
     }
     
     setFormErrors(tempErrors);
+  }
+
+  const handleSelectAllClick = () => {
+    let selectAll = true;
+    if (hasReviewedKeyboard && hasReviewedContrast && hasReviewedCaptions) {
+      selectAll = false;
+    }
+    setHasReviewedKeyboard(selectAll);
+    setHasReviewedContrast(selectAll);
+    setHasReviewedCaptions(selectAll);
   }
   
   return (
@@ -127,6 +136,12 @@ export default function EmbeddedContentReviewForm({
                   dangerouslySetInnerHTML={{__html: t('form.embedded_content_review.label.captions')}}
                 ></label>
               </div>
+            </div>
+            <div className="flex-row justify-content-center mt-3">
+              <button
+                className="btn-small btn-secondary"
+                onClick={() => handleSelectAllClick()}
+                >{t('form.embedded_content_review.button.mark_all')}</button>
             </div>
             <OptionFeedback
               t={t}

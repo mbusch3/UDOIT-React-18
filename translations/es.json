@@ -507,6 +507,7 @@
   "form.embedded_content_review.label.keyboard": "TODO: Any interactive elements can be reached and used with <strong>keyboard</strong> controls",
   "form.embedded_content_review.label.contrast": "TODO: Any text has sufficient color <strong>contrast</strong> with its background",
   "form.embedded_content_review.label.captions": "TODO: Any audio or video has <strong>captions</strong> and/or transcripts available",
+  "form.embedded_content_review.button.mark_all": "TODO: Mark All",
   "form.embedded_content_review.msg.required": "TODO: If the embedded content cannot meet these requirements, either replace it or add an equivalent accessible alternative.",
 
   "form.emphasis.title": "La Información No Debe Ser Transmitida Solo por Color",

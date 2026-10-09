@@ -955,7 +955,14 @@ export default function FixIssuesPage({
     setActiveIssue(null)
   }
 
-  const noChanges = tempActiveIssue?.issueData?.initialHtml && tempActiveIssue?.issueData?.newHtml && tempActiveIssue.issueData.initialHtml === tempActiveIssue.issueData.newHtml
+  const noChanges = (
+    (tempActiveIssue?.issueData?.initialHtml 
+      && tempActiveIssue?.issueData?.newHtml
+      && tempActiveIssue.issueData.initialHtml === tempActiveIssue.issueData.newHtml)
+    && (activeOption 
+      && activeOption !== UFIXIT_OPTIONS.DELETE_ELEMENT
+      && activeOption !== UFIXIT_OPTIONS.REVIEW_CONTENT
+      && activeOption !== UFIXIT_OPTIONS.MARK_AS_REVIEWED))
 
   return (
     <>
