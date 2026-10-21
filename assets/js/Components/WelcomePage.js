@@ -1,4 +1,3 @@
-import React from 'react'
 import UDOITLogo from '../../mediaAssets/udoit-logo.svg'
 import UDOITLogoDark from '../../mediaAssets/udoit-logo-inverse.svg'
 import UCFOpenLogo from '../../mediaAssets/ucfopen-logo.svg'

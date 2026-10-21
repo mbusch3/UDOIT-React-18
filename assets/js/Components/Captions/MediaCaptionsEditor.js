@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import WavesurferPlayer from "@wavesurfer/react";
 import Timeline from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Regions from "wavesurfer.js/dist/plugins/regions.esm.js";
@@ -19,12 +19,11 @@ import MediaCaptionsCueList from "./MediaCaptionsCueList";
 import MediaCaptionsLoadingProgress from "./MediaCaptionsLoadingProgress";
 import MediaCaptionsPlaybackControls from "./MediaCaptionsPlaybackControls";
 import OptionFeedback from "../Widgets/OptionFeedback";
-import SliderSelect from "../Widgets/SliderSelect";
 import mediaCaptionsProcessing from "./mediaCaptionsProcessing";
 import useWaveformKeyboard from "./useWaveformKeyboard";
 
 import Api from '../../Services/Api';
-import { parseVTT, buildVttText, vttToS, formatTimeVTT, formatVTTTime, truncateVttTime } from "../../Services/Captions";
+import { parseVTT, buildVttText, vttToS, formatTimeVTT, formatVTTTime } from "../../Services/Captions";
 import { DEFAULT_USER_SETTINGS } from "../../Services/Constants";
 import { primaryLanguages } from '../../Services/Lang';
 import * as Text from '../../Services/Text';
@@ -85,8 +84,6 @@ export default function MediaCaptionsEditor({
 
   const [cues, setCues] = useState([]);
   const [cueDisplay, setCueDisplay] = useState(CUE_STYLE.LIST);
-  const [dragListener, setDragListener] = useState(null);
-  const [dragEndListener, setDragEndListener] = useState(null);
   const [trackOptions, setTrackOptions] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
@@ -1105,7 +1102,6 @@ export default function MediaCaptionsEditor({
                       disabled={isDisabled || !cues || cues?.length === 0}
                       aria-label={t('form.media.button.export_vtt')}
                       title={t('form.media.button.export_vtt')}
-                      disabled={cues.length === 0}
                       onClick={handleExport}>
                       <DownloadIcon className="icon-md" />
                     </button>

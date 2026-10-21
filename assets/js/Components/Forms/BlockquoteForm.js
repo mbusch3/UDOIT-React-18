@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import RadioSelector from '../Widgets/RadioSelector'
 import OptionFeedback from '../Widgets/OptionFeedback'
 import ToggleSwitch from '../Widgets/ToggleSwitch'
@@ -11,7 +11,6 @@ export default function BlockquoteForm({
   activeIssue,
   isDisabled,
   handleActiveIssue,
-  activeContentItem,
   activeOption,
   setActiveOption,
   formErrors,

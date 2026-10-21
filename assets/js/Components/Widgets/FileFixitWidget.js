@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react'
 import BarrierInformation from './BarrierInformation'
 import StatusPill from './StatusPill'
 import FileForm from '../Forms/FileForm'
 import './UfixitWidget.css'
-import CheckIcon from '../Icons/CheckIcon'
-import SeverityPotentialIcon from '../Icons/SeverityPotentialIcon'
-import SeverityIssueIconFilled from '../Icons/SeverityIssueIconFilled'
-
 
 export default function FileFixitWidget({
   t,

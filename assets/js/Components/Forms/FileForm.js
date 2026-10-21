@@ -1,18 +1,15 @@
-import React, { useState, useEffect, act } from 'react'
+import { useState, useEffect } from 'react'
 import UploadIcon from '../Icons/UploadIcon'
 import './FileForm.css'
 import FileInformation from '../Widgets/FileInformation'
-import * as Text from '../../Services/Text'
 import CloseIcon from '../Icons/CloseIcon'
 
 export default function FileForm ({
   t, 
   activeFile,
-  sessionFiles,
   uploadedFile,
   setUploadedFile,
   isDisabled,
-  setIsDisabled,
   markAsReviewed,
   setMarkAsReviewed,
   handleFileResolveWrapper,

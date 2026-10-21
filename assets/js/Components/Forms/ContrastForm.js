@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { UFIXIT_OPTIONS } from '../../Services/Constants'
 import CheckIcon from '../Icons/CheckIcon'
 import DarkIcon from '../Icons/DarkIcon'

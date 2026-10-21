@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import ProgressCircle from './Widgets/ProgressCircle'
 import ContentAnnouncementIcon from './Icons/ContentAnnouncementIcon'
 import ContentPageIcon from './Icons/ContentPageIcon'
@@ -10,7 +10,7 @@ import SummaryIcon from './Icons/SummaryIcon'
 import CheckIcon from './Icons/CheckIcon'
 import * as Html from '../Services/Html'
 import './HomePage.css'
-import { ISSUE_FILTER, ISSUE_STATE } from '../Services/Constants'
+import { ISSUE_FILTER } from '../Services/Constants'
 
 export default function HomePage({
   t,
@@ -18,7 +18,6 @@ export default function HomePage({
   report,
   hasNewReport,
   quickIssues,
-  sessionIssues,
   syncComplete,
   handleFullCourseRescan
 }) {

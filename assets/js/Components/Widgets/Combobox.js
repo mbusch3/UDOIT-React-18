@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import ContentAnnouncementIcon from '../Icons/ContentAnnouncementIcon'
 import ContentAssignmentIcon from '../Icons/ContentAssignmentIcon'
 import ContentDiscussionForumIcon from '../Icons/ContentDiscussionForumIcon'

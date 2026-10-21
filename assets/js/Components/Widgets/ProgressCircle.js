@@ -1,4 +1,3 @@
-import React from 'react'
 import './ProgressCircle.css' 
 
 // This component is adapted from https://dev.to/alwarg/how-to-create-an-responsive-percentage-circle-4gg7

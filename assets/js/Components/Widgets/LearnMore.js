@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import LeftArrowIcon from '../Icons/LeftArrowIcon'
-// import DisabilityCognitiveIcon from '../Icons/DisabilityCognitiveIcon'
-// import DisabilityHearingIcon from '../Icons/DisabilityHearingIcon'
-// import DisabilityMotorIcon from '../Icons/DisabilityMotorIcon'
-// import DisabilityVisualIcon from '../Icons/DisabilityVisualIcon'
-import { disabilityTypes, disabilitiesFromRule, formNameFromRule } from '../../Services/Ufixit'
+import { formNameFromRule } from '../../Services/Ufixit'
 import './UfixitWidget.css'
 import { ISSUE_FILTER } from '../../Services/Constants'
 
@@ -17,21 +13,16 @@ export default function LearnMore ({
 }) {
 
   const [formLearnMore, setFormLearnMore] = useState('')
-  const [disabilities, setDisabilities] = useState([])
-  
 
   useEffect(() => {
     if(!tempActiveIssue) {
-      setDisabilities([])
       return
     }
 
     if(tempActiveIssue.contentType === ISSUE_FILTER.FILE_OBJECT) {
       setFormLearnMore(t(`form.file.${tempActiveIssue.fileData.fileType}.learn_more`))
-      setDisabilities([disabilityTypes.COGNITIVE, disabilityTypes.VISUAL])
     }
     else {
-      setDisabilities(disabilitiesFromRule(tempActiveIssue.scanRuleId))
       let tempFormName = formNameFromRule(tempActiveIssue.scanRuleId)
       if(tempFormName === 'review_only') {
         let ruleLearnMore = t(`rule.desc.${tempActiveIssue.scanRuleId}`)

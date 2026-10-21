@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState, useRef } from "react";
-import { vttToMS, formatVTTTime, truncateVttTime } from "../../Services/Captions";
+import { useCallback, useEffect, useState } from "react";
+import { vttToMS, formatVTTTime } from "../../Services/Captions";
 
 export default function useWaveformKeyboard({
   cues,

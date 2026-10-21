@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { UFIXIT_OPTIONS } from '../../Services/Constants'
 import MagicIcon from '../Icons/MagicIcon'
 import * as Html from '../../Services/Html'
@@ -7,15 +7,12 @@ import { numberedPattern, romanPattern, letteredPattern, bulletPattern } from '.
 
 export default function ListForm({
   t,
-  instanceInfo,
   activeIssue,
   activeContentItem,
-  isDisabled,
   handleActiveIssue,
   isContentLoading,
   activeOption,
   setActiveOption,
-  formErrors,
   setFormErrors,
   setPreviewData
 }) {

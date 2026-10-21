@@ -1,15 +1,10 @@
-import React, { useState } from 'react'
 import FormExternalLink from './FormExternalLink'
-import MediaCaptionsEditor from '../Captions/MediaCaptionsEditor'
 
 export default function MediaCaptionsForm({
   t,
   instanceInfo,
-  activeIssue,
-  addMessage,
-  isDisabled
+  activeIssue
 }) {
-  const [showModal, setShowModal] = useState(false)
 
   let baseUrl = '';
   if (activeIssue?.contentUrl) {

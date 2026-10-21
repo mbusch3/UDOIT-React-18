@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import SearchIcon from '../Icons/SearchIcon'
 import Combobox from '../Widgets/Combobox'
 import ToggleSwitch from './ToggleSwitch'

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import UDOITLogo from '../../mediaAssets/udoit-logo.svg'
 import UDOITLogoDark from '../../mediaAssets/udoit-logo-inverse.svg'
 import Combobox from './Widgets/Combobox'

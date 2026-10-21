@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProgressIcon from '../Icons/ProgressIcon'
 import FixedIcon from '../Icons/FixedIcon'
 import InfoIcon from '../Icons/InfoIcon'

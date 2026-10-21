@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
 import UpArrowIcon from '../Icons/UpArrowIcon'
 import DownArrowIcon from '../Icons/DownArrowIcon'
 import './FixIssuesContentPreview.css'
 
 export default function ScrollButton({
   t,
-
   scrollToError
 }) {
     

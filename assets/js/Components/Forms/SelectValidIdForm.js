@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UFIXIT_OPTIONS } from '../../Services/Constants'
 import * as Html from '../../Services/Html'
 import RadioSelector from '../Widgets/RadioSelector'

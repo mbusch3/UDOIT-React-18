@@ -1,4 +1,3 @@
-import React from 'react'
 import SeverityIssueIcon from '../Icons/SeverityIssueIcon'
 import SeverityPotentialIcon from '../Icons/SeverityPotentialIcon'
 

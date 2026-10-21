@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import InfoIcon from '../Icons/InfoIcon'
 import CloseIcon from '../Icons/CloseIcon'
 import './InfoPopover.css'

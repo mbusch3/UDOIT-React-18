@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import AddIcon from "../Icons/AddIcon";
 import ArrowIcon from "../Icons/ArrowIcon";
 import CloseIcon from "../Icons/CloseIcon";
 import InsertAfterIcon from "../Icons/InsertAfterIcon";
@@ -33,8 +32,6 @@ export default function MediaCaptionsCueList({
     <ul aria-labelledby="captions-list-label">
       {cues.map((cue, i) => {
 
-        const firstCaption = i === 0;
-        const lastCaption = i === cues.length - 1;
         const active = selectedIndex === cue.id;
 
         return (

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { formNameFromRule } from '../../Services/Ufixit'
+import { useState, useEffect } from 'react'
 import InfoIcon from '../Icons/InfoIcon'
 
 export default function FormClarification({

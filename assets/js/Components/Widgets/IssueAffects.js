@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import SeverityIcon from '../Icons/SeverityIcon'
 import DisabilityCognitiveIcon from '../Icons/DisabilityCognitiveIcon'
